@@ -7,6 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -22,5 +23,10 @@ public class DispatcherTest extends TestBase {
         dispatcher.dispatch(chatEntry);
         //then
         verify(chatController).handle(chatEntry);
+    }
+
+    @Test
+    public void shouldThrowExceptionOtherwise() {
+        assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> dispatcher.dispatch(new Object()));
     }
 }
