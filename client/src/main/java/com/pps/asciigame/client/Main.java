@@ -2,6 +2,7 @@ package com.pps.asciigame.client;
 
 import com.pps.asciigame.common.Connection;
 import com.pps.asciigame.common.Dispatcher;
+import com.pps.asciigame.common.configuration.Config;
 import com.pps.asciigame.common.messages.ChatEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -13,8 +14,6 @@ import java.time.LocalDateTime;
 
 @ComponentScan
 public class Main {
-    private static final String HOSTNAME = "localhost";
-    private static final int PORT = 8080;
     @Autowired
     private Dispatcher dispatcher;
 
@@ -25,7 +24,7 @@ public class Main {
     }
 
     private void start() {
-        try (final var socket = new Socket(HOSTNAME, PORT)) {
+        try (final var socket = new Socket(Config.hostname(), Config.port())) {
             final var connection = new Connection(socket, dispatcher);
 
             // TODO remove DEBUG STUFF

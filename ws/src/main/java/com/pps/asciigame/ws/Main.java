@@ -1,5 +1,6 @@
 package com.pps.asciigame.ws;
 
+import com.pps.asciigame.common.configuration.Config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
@@ -9,7 +10,6 @@ import java.net.ServerSocket;
 
 @ComponentScan
 public class Main {
-    private final static int portNumber = 8080;
     @Autowired
     private ConnectionManager connectionManager;
 
@@ -20,12 +20,12 @@ public class Main {
     }
 
     private void start() {
-        try (final var serverSocket = new ServerSocket(portNumber)) {
+        try (final var serverSocket = new ServerSocket(Config.port())) {
             while (true) {
                 connectionManager.addConnection(serverSocket.accept());
             }
         } catch (final IOException e) {
-            System.err.println("Could not listen on port " + portNumber);
+            System.err.println("Could not listen on port ");
             System.exit(-1);
         }
     }
