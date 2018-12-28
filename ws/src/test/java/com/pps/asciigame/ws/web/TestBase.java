@@ -1,4 +1,4 @@
-package com.pps.asciigame.ws;
+package com.pps.asciigame.ws.web;
 
 import com.pps.asciigame.common.messages.ChatEntry;
 

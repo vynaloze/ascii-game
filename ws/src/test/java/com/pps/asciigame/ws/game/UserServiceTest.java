@@ -1,6 +1,7 @@
-package com.pps.asciigame.ws;
+package com.pps.asciigame.ws.game;
 
 import com.pps.asciigame.common.model.User;
+import com.pps.asciigame.ws.Main;
 import com.pps.asciigame.ws.game.users.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

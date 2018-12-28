@@ -1,5 +1,6 @@
-package com.pps.asciigame.ws;
+package com.pps.asciigame.ws.web;
 
+import com.pps.asciigame.ws.ConnectionManager;
 import com.pps.asciigame.ws.chat.ChatController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
