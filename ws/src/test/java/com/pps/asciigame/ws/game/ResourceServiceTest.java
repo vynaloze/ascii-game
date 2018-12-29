@@ -2,6 +2,7 @@ package com.pps.asciigame.ws.game;
 
 import com.pps.asciigame.common.model.ResourceType;
 import com.pps.asciigame.common.model.User;
+import com.pps.asciigame.common.model.exception.NegativeResourceAmountException;
 import com.pps.asciigame.ws.Main;
 import com.pps.asciigame.ws.game.resources.ResourceService;
 import com.pps.asciigame.ws.game.users.UserRepository;
@@ -18,6 +19,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import javax.transaction.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {Main.class}, loader = AnnotationConfigContextLoader.class)
@@ -52,6 +54,16 @@ public class ResourceServiceTest {
         resourceService.updateResource(resource);
         //then
         assertThat(resourceService.getResourceOfUser(user, ResourceType.GOLD).getAmount()).isEqualTo(newAmount);
+    }
+
+    @Test
+    public void shouldNotUpdateNegativeAmount() {
+        //given
+        final var newAmount = -1.0;
+        final var resource = resourceService.getResourceOfUser(user, ResourceType.FOOD);
+        resource.setAmount(newAmount);
+        //then
+        assertThatExceptionOfType(NegativeResourceAmountException.class).isThrownBy(() -> resourceService.updateResource(resource));
     }
 
 }

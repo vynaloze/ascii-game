@@ -1,6 +1,8 @@
 package com.pps.asciigame.ws.game;
 
 import com.pps.asciigame.common.model.User;
+import com.pps.asciigame.common.model.exception.DuplicateUserFoundException;
+import com.pps.asciigame.common.model.exception.UserNotFoundException;
 import com.pps.asciigame.ws.Main;
 import com.pps.asciigame.ws.game.users.UserService;
 import org.apache.logging.log4j.LogManager;
@@ -15,6 +17,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import javax.transaction.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {Main.class}, loader = AnnotationConfigContextLoader.class)
@@ -27,12 +30,34 @@ public class UserServiceTest {
     @Test
     public void shouldAddUser() {
         //given
-        final String name = "testuser";
-        final User user = new User(name);
+        final var name = "testuser";
+        final var user = new User(name);
         //when
         userService.addUser(user);
         //then
-        assertThat(userService.getUserByName(name)).hasSize(1).containsOnly(user);
+        assertThat(userService.getUserByName(name)).isEqualTo(user);
+    }
+
+    @Test
+    public void shouldThrowExceptionOnNotPresentUser() {
+        //given
+        final var name = "testuser";
+        final var wrongName = "testuserr";
+        final var user = new User(name);
+        userService.addUser(user);
+        //then
+        assertThatExceptionOfType(UserNotFoundException.class).isThrownBy(() -> userService.getUserByName(wrongName));
+    }
+
+    @Test
+    public void shouldThrowExceptionOnDuplicateUsername() {
+        //given
+        final var name = "testuser";
+        final var user = new User(name);
+        userService.addUser(user);
+        final var duplicateUser = new User(name);
+        //then
+        assertThatExceptionOfType(DuplicateUserFoundException.class).isThrownBy(() -> userService.addUser(duplicateUser));
     }
 
 

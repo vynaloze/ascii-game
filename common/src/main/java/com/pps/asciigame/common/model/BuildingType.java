@@ -5,7 +5,7 @@ import java.util.Map;
 import static com.pps.asciigame.common.model.ResourceType.*;
 
 public enum BuildingType {
-    CENTRAL(Map.of(GOLD, 0.0, MINERAL, 0.0, FOOD, 0.0),
+    CENTRAL(Map.of(GOLD, 1000.0, MINERAL, 1000.0, FOOD, 500.0),
             Map.of(GOLD, 10.0, MINERAL, 10.0, FOOD, 5.0)),
     A(Map.of(GOLD, 100.0, MINERAL, 100.0, FOOD, 20.0),
             Map.of(GOLD, 5.0, MINERAL, 2.0, FOOD, -1.0));

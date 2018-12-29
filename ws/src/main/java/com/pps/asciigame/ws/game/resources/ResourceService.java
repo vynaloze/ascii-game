@@ -4,6 +4,7 @@ import com.pps.asciigame.common.configuration.Config;
 import com.pps.asciigame.common.model.Resource;
 import com.pps.asciigame.common.model.ResourceType;
 import com.pps.asciigame.common.model.User;
+import com.pps.asciigame.common.model.exception.NegativeResourceAmountException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,9 @@ public class ResourceService {
     }
 
     public void updateResource(final Resource resource) {
+        if (resource.getAmount() < 0.0) {
+            throw new NegativeResourceAmountException();
+        }
         resourceRepository.save(resource);
     }
 
