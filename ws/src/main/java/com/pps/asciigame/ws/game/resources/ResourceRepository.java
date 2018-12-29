@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ResourceRepository extends CrudRepository<Resource, Long> {
-    List<Resource> findResourceByUser(User user);
+    List<Resource> findByUser(User user);
 
-    Optional<Resource> findResourceByUserAndType(User user, ResourceType resourceType);
+    Optional<Resource> findByUserAndType(User user, ResourceType resourceType);
 }

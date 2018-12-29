@@ -1,6 +1,7 @@
 package com.pps.asciigame.common.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "resources")
@@ -21,14 +22,14 @@ public class Resource {
     @Column(name = "type")
     private ResourceType type;
 
-    @Column(name = "growth_rate")
-    private Double growthRate;
+    @Column(name = "last_updated")
+    private LocalDateTime lastUpdated;
 
-    public Resource(User user, Double amount, ResourceType type, Double growthRate) {
+    public Resource(User user, Double amount, ResourceType type, LocalDateTime lastUpdated) {
         this.user = user;
         this.amount = amount;
         this.type = type;
-        this.growthRate = growthRate;
+        this.lastUpdated = lastUpdated;
     }
 
     protected Resource() {
@@ -66,12 +67,12 @@ public class Resource {
         this.type = type;
     }
 
-    public Double getGrowthRate() {
-        return growthRate;
+    public LocalDateTime getLastUpdated() {
+        return lastUpdated;
     }
 
-    public void setGrowthRate(Double growthRate) {
-        this.growthRate = growthRate;
+    public void setLastUpdated(LocalDateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 
     @Override
@@ -97,7 +98,7 @@ public class Resource {
         if (type != resource.type) {
             return false;
         }
-        return growthRate != null ? growthRate.equals(resource.growthRate) : resource.growthRate == null;
+        return lastUpdated != null ? lastUpdated.equals(resource.lastUpdated) : resource.lastUpdated == null;
     }
 
     @Override
@@ -106,7 +107,7 @@ public class Resource {
         result = 31 * result + (user != null ? user.hashCode() : 0);
         result = 31 * result + (amount != null ? amount.hashCode() : 0);
         result = 31 * result + (type != null ? type.hashCode() : 0);
-        result = 31 * result + (growthRate != null ? growthRate.hashCode() : 0);
+        result = 31 * result + (lastUpdated != null ? lastUpdated.hashCode() : 0);
         return result;
     }
 }

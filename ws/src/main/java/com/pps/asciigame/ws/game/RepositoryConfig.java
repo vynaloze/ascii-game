@@ -19,7 +19,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@EnableJpaRepositories({"com.pps.asciigame.ws.game.resources", "com.pps.asciigame.ws.game.users"})
+@EnableJpaRepositories({"com.pps.asciigame.ws.game.resources", "com.pps.asciigame.ws.game.users", "com.pps.asciigame.ws.game.bases"})
 @PropertySource("application.properties")
 @EnableTransactionManagement
 public class RepositoryConfig {
