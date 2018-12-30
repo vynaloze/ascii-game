@@ -34,11 +34,11 @@ public class Main {
             connection.write(new LoginRequest(user));
 
             // TODO remove DEBUG STUFF
-            final var chatEntry = new ChatEntry(LocalDateTime.now(), "Author", "MEssage");
+            final var chatEntry = new ChatEntry(LocalDateTime.now(), user, "MEssage");
             connection.write(chatEntry);
             Thread.sleep(5000);
 
-            final var chatEntry2 = new ChatEntry(LocalDateTime.now(), "Author", "MEssage 2");
+            final var chatEntry2 = new ChatEntry(LocalDateTime.now(), user, "MEssage 2");
             connection.write(chatEntry2);
             Thread.sleep(5000);
 

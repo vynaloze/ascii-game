@@ -1,50 +1,31 @@
 package com.pps.asciigame.common.protocol;
 
-import java.io.Serializable;
+import com.pps.asciigame.common.model.User;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class ChatEntry implements Serializable {
+public class ChatEntry extends Message {
     private static final transient DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_LOCAL_TIME;
-    private LocalDateTime dateTime;
-    private String author;
-    private String message;
+    private final LocalDateTime dateTime;
+    private final String message;
 
-    public ChatEntry(final LocalDateTime dateTime, final String author, final String message) {
+    public ChatEntry(final LocalDateTime dateTime, final User author, final String message) {
+        super(author);
         this.dateTime = dateTime;
-        this.author = author;
         this.message = message;
-    }
-
-    public ChatEntry() {
     }
 
     public LocalDateTime getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(final LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(final String author) {
-        this.author = author;
-    }
-
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(final String message) {
-        this.message = message;
-    }
-
     @Override
     public String toString() {
-        return dateTime.format(FORMATTER) + " <" + author + "> " + message;
+        return dateTime.format(FORMATTER) + " <" + getUser().getName() + "> " + message;
     }
 }

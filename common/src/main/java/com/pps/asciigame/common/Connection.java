@@ -2,6 +2,7 @@ package com.pps.asciigame.common;
 
 import com.pps.asciigame.common.model.User;
 import com.pps.asciigame.common.protocol.LoginRequest;
+import com.pps.asciigame.common.protocol.Message;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -41,15 +42,19 @@ public class Connection {
         @Override
         public void run() {
             try (final ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
-                Object message;
-                while ((message = in.readObject()) != null) {   // it will never happen (until client explicitly writes null).
+                Message message;
+                while ((message = (Message) in.readObject()) != null) {   // it will never happen (until client explicitly writes null).
                     // if the client closes stream, we'll get EOF exception instead.
                     // so better way of handling is needed - todo
 
                     if (message instanceof LoginRequest) {
-                        user = ((LoginRequest) message).getUser();
+                        user = message.getUser();
                     } else if (isReady()) {
-                        dispatcher.dispatch(message);
+                        if (message.getUser().equals(user)) {
+                            dispatcher.dispatch(message);
+                        } else {
+                            throw new RuntimeException("Some filthy hacker tries to impersonate someone else!");
+                        }
                     }
                 }
                 socket.close();
