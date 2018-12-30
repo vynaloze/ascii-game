@@ -1,6 +1,6 @@
 package com.pps.asciigame.ws.chat;
 
-import com.pps.asciigame.common.messages.ChatEntry;
+import com.pps.asciigame.common.protocol.ChatEntry;
 import com.pps.asciigame.ws.ConnectionManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

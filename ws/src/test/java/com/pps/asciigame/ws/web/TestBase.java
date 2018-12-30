@@ -1,6 +1,6 @@
 package com.pps.asciigame.ws.web;
 
-import com.pps.asciigame.common.messages.ChatEntry;
+import com.pps.asciigame.common.protocol.ChatEntry;
 
 import java.time.LocalDateTime;
 

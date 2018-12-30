@@ -1,6 +1,6 @@
 package com.pps.asciigame.client.chat;
 
-import com.pps.asciigame.common.messages.ChatEntry;
+import com.pps.asciigame.common.protocol.ChatEntry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;

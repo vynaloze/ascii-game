@@ -1,4 +1,4 @@
-package com.pps.asciigame.common.messages;
+package com.pps.asciigame.common.protocol;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

@@ -4,11 +4,15 @@ import com.pps.asciigame.common.configuration.Config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 
+@Configuration
 @ComponentScan
+@EnableScheduling
 public class Main {
     @Autowired
     private ConnectionManager connectionManager;

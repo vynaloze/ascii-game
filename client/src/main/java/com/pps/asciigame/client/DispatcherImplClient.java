@@ -2,7 +2,7 @@ package com.pps.asciigame.client;
 
 import com.pps.asciigame.client.chat.ChatController;
 import com.pps.asciigame.common.Dispatcher;
-import com.pps.asciigame.common.messages.ChatEntry;
+import com.pps.asciigame.common.protocol.ChatEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
