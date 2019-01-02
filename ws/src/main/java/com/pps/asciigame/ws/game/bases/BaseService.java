@@ -1,13 +1,13 @@
 package com.pps.asciigame.ws.game.bases;
 
-import com.pps.asciigame.common.model.Base;
-import com.pps.asciigame.common.model.Building;
-import com.pps.asciigame.common.model.BuildingType;
-import com.pps.asciigame.common.model.User;
+import com.pps.asciigame.common.JsonParser;
+import com.pps.asciigame.common.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BaseService {
@@ -32,6 +32,22 @@ public class BaseService {
 
     public List<Building> getBuildingsInBase(final Base base) {
         return buildingRepository.findByBase(base);
+    }
+
+    public List<Building> getBuildingsByOwner(final User owner) {
+        return getBasesWithOwner(owner).stream()
+                .map(this::getBuildingsInBase)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+    }
+
+    public double getTotalProfitOf(final ResourceType resourceType, final User user) {
+        return getBasesWithOwner(user).stream()
+                .map(this::getBuildingsInBase)
+                .flatMap(Collection::stream)
+                .map(building -> JsonParser.asObject(building.getProfits(), ResourceAmounts.class))
+                .mapToDouble(profits -> profits.getAmount(resourceType))
+                .sum();
     }
 
 }

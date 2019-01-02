@@ -2,6 +2,9 @@ package com.pps.asciigame.ws;
 
 import com.pps.asciigame.common.Connection;
 import com.pps.asciigame.common.Dispatcher;
+import com.pps.asciigame.common.model.User;
+import com.pps.asciigame.common.model.exception.UserNotFoundException;
+import com.pps.asciigame.common.protocol.Message;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,15 +31,25 @@ public class ConnectionManager {
             waitingConnections.add(connection);
             LOGGER.info("Anonymous connection established.");
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
     }
 
-    public void pushToAll(final Object message) {
+    public void pushToAll(final Message message) {
         readyConnections.forEach(c -> c.write(message));
     }
 
-    //todo push to specific one
+    public void pushTo(final User user, final Message message) {
+        readyConnections.stream()
+                .filter(connection -> connection.getUser().equals(user))
+                .findFirst()
+                .ifPresentOrElse(
+                        connection -> connection.write(message),
+                        () -> {
+                            throw new UserNotFoundException(); //todo maybe different ex?
+                        }
+                );
+    }
 
     //todo remove connection
 

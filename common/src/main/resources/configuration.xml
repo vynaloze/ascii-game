@@ -4,9 +4,4 @@
         <hostname>localhost</hostname>
         <port>8080</port>
     </server>
-    <base_resources>
-        <gold>100</gold>
-        <mineral>200</mineral>
-        <food>50</food>
-    </base_resources>
 </configuration>

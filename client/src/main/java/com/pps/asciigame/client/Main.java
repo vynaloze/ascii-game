@@ -42,6 +42,7 @@ public class Main {
             connection.write(chatEntry2);
             Thread.sleep(5000);
 
+
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }

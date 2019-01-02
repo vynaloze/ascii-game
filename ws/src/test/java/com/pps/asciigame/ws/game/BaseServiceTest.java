@@ -2,6 +2,7 @@ package com.pps.asciigame.ws.game;
 
 import com.pps.asciigame.common.model.Base;
 import com.pps.asciigame.common.model.BuildingType;
+import com.pps.asciigame.common.model.ResourceType;
 import com.pps.asciigame.common.model.User;
 import com.pps.asciigame.ws.Main;
 import com.pps.asciigame.ws.game.bases.BaseService;
@@ -59,5 +60,20 @@ public class BaseServiceTest {
         baseService.addBuilding(building);
         //then
         assertThat(baseService.getBuildingsInBase(base)).hasSize(2).contains(building);
+    }
+
+    @Test
+    public void shouldCalculateTotalProfit() {
+        //given
+        final var base = new Base(0, 0, "testbase", user);
+        final var building = BuildingFactory.createBuilding(base, BuildingType.A);
+        baseService.addBase(base);
+        baseService.addBuilding(building);
+        final var expectedProfit = BuildingType.CENTRAL.getProfit().getAmount(ResourceType.MINERAL)
+                + BuildingType.A.getProfit().getAmount(ResourceType.MINERAL);
+        //when
+        final var totalProfit = baseService.getTotalProfitOf(ResourceType.MINERAL, user);
+        //then
+        assertThat(totalProfit).isEqualTo(expectedProfit);
     }
 }

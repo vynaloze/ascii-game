@@ -1,28 +1,46 @@
 package com.pps.asciigame.common.model;
 
-import java.util.Map;
-
 import static com.pps.asciigame.common.model.ResourceType.*;
 
 public enum BuildingType {
-    CENTRAL(Map.of(GOLD, 1000.0, MINERAL, 1000.0, FOOD, 500.0),
-            Map.of(GOLD, 10.0, MINERAL, 10.0, FOOD, 5.0)),
-    A(Map.of(GOLD, 100.0, MINERAL, 100.0, FOOD, 20.0),
-            Map.of(GOLD, 5.0, MINERAL, 2.0, FOOD, -1.0));
+    CENTRAL(
+            new ResourceAmounts.Builder()
+                    .withType(GOLD, 1000.0)
+                    .withType(MINERAL, 1000.0)
+                    .withType(FOOD, 500.0)
+                    .build(),
+            new ResourceAmounts.Builder()
+                    .withType(GOLD, 10.0)
+                    .withType(MINERAL, 10.0)
+                    .withType(FOOD, 5.0)
+                    .build()
+    ),
+    A(
+            new ResourceAmounts.Builder()
+                    .withType(GOLD, 100.0)
+                    .withType(MINERAL, 100.0)
+                    .withType(FOOD, 20.0)
+                    .build(),
+            new ResourceAmounts.Builder()
+                    .withType(GOLD, 5.0)
+                    .withType(MINERAL, 2.0)
+                    .withType(FOOD, -1.0)
+                    .build()
+    );
 
-    private final Map<ResourceType, Double> cost;
-    private final Map<ResourceType, Double> profit;
+    private final ResourceAmounts cost;
+    private final ResourceAmounts profit;
 
-    BuildingType(final Map<ResourceType, Double> cost, final Map<ResourceType, Double> profit) {
+    BuildingType(final ResourceAmounts cost, final ResourceAmounts profit) {
         this.cost = cost;
         this.profit = profit;
     }
 
-    public Map<ResourceType, Double> getCost() {
+    public ResourceAmounts getCost() {
         return cost;
     }
 
-    public Map<ResourceType, Double> getProfit() {
+    public ResourceAmounts getProfit() {
         return profit;
     }
 }

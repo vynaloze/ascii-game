@@ -3,6 +3,8 @@ package com.pps.asciigame.common;
 import com.pps.asciigame.common.model.User;
 import com.pps.asciigame.common.protocol.LoginRequest;
 import com.pps.asciigame.common.protocol.Message;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -10,6 +12,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class Connection {
+    private static final Logger LOGGER = LogManager.getLogger(Connection.class);
     private final Socket socket;
     private final Dispatcher dispatcher;
     private final ObjectOutputStream out;
@@ -34,7 +37,7 @@ public class Connection {
         try {
             out.writeObject(message);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
     }
 
@@ -53,13 +56,13 @@ public class Connection {
                         if (message.getUser().equals(user)) {
                             dispatcher.dispatch(message);
                         } else {
-                            throw new RuntimeException("Some filthy hacker tries to impersonate someone else!");
+                            throw new RuntimeException("Some filthy hacker tries to impersonate someone else!"); //fixme
                         }
                     }
                 }
                 socket.close();
             } catch (final IOException | ClassNotFoundException e) {
-                e.printStackTrace();
+                LOGGER.error(e);
             }
         }
 
