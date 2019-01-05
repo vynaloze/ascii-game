@@ -1,6 +1,8 @@
 package com.pps.asciigame.common.model;
 
-public enum ResourceType {
+import java.io.Serializable;
+
+public enum ResourceType implements Serializable {
     GOLD(1000), MINERAL(2000), FOOD(500);
 
     private final double intialAmount;

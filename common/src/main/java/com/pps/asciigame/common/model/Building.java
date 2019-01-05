@@ -1,10 +1,11 @@
 package com.pps.asciigame.common.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "buildings")
-public class Building {
+public class Building implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "id")
