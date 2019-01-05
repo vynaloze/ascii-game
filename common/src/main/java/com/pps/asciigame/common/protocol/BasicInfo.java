@@ -30,4 +30,21 @@ public class BasicInfo extends Message {
     public List<Building> getBuildings() {
         return buildings;
     }
+
+    @Override
+    public String toString() {
+        final var sb = new StringBuilder("BasicInfo:");
+        for (final var resource : resources) {
+            sb.append(" ").append(resource.getType()).append("=").append(resource.getAmount());
+        }
+        sb.append("; BASES:");
+        for (final var base : bases) {
+            sb.append(" ").append(base.getName());
+        }
+        sb.append("; BUILDINGS:");
+        for (final var building : buildings) {
+            sb.append(" ").append(building.getType());
+        }
+        return sb.toString();
+    }
 }

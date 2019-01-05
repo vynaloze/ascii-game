@@ -1,11 +1,12 @@
 package com.pps.asciigame.common.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "resources")
-public class Resource {
+public class Resource implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "id")

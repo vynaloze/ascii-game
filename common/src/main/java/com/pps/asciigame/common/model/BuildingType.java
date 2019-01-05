@@ -1,8 +1,10 @@
 package com.pps.asciigame.common.model;
 
+import java.io.Serializable;
+
 import static com.pps.asciigame.common.model.ResourceType.*;
 
-public enum BuildingType {
+public enum BuildingType implements Serializable {
     CENTRAL(
             new ResourceAmounts.Builder()
                     .withType(GOLD, 1000.0)
@@ -17,9 +19,9 @@ public enum BuildingType {
     ),
     A(
             new ResourceAmounts.Builder()
-                    .withType(GOLD, 100.0)
-                    .withType(MINERAL, 100.0)
-                    .withType(FOOD, 20.0)
+                    .withType(GOLD, 1000.0)
+                    .withType(MINERAL, 1000.0)
+                    .withType(FOOD, 500.0)
                     .build(),
             new ResourceAmounts.Builder()
                     .withType(GOLD, 5.0)
