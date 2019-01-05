@@ -1,4 +1,4 @@
-package com.pps.asciigame.ws.game.bases;
+package com.pps.asciigame.common.util;
 
 import com.pps.asciigame.common.JsonParser;
 import com.pps.asciigame.common.model.Base;

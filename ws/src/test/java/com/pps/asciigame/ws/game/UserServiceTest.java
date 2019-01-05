@@ -2,7 +2,6 @@ package com.pps.asciigame.ws.game;
 
 import com.pps.asciigame.common.model.User;
 import com.pps.asciigame.common.model.exception.DuplicateUserFoundException;
-import com.pps.asciigame.common.model.exception.UserNotFoundException;
 import com.pps.asciigame.ws.Main;
 import com.pps.asciigame.ws.game.users.UserService;
 import org.apache.logging.log4j.LogManager;
@@ -35,18 +34,20 @@ public class UserServiceTest {
         //when
         userService.addUser(user);
         //then
-        assertThat(userService.getUserByName(name)).isEqualTo(user);
+        assertThat(userService.getUserByName(name)).contains(user);
     }
 
     @Test
-    public void shouldThrowExceptionOnNotPresentUser() {
+    public void shouldNotFindNotExistingUser() {
         //given
         final var name = "testuser";
         final var wrongName = "testuserr";
         final var user = new User(name);
         userService.addUser(user);
+        //when
+        final var result = userService.getUserByName(wrongName);
         //then
-        assertThatExceptionOfType(UserNotFoundException.class).isThrownBy(() -> userService.getUserByName(wrongName));
+        assertThat(result).isEmpty();
     }
 
     @Test

@@ -1,7 +1,7 @@
 package com.pps.asciigame.common;
 
 import com.pps.asciigame.common.model.User;
-import com.pps.asciigame.common.protocol.LoginRequest;
+import com.pps.asciigame.common.protocol.Login;
 import com.pps.asciigame.common.protocol.Message;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -50,8 +50,9 @@ public class Connection {
                     // if the client closes stream, we'll get EOF exception instead.
                     // so better way of handling is needed - todo
 
-                    if (message instanceof LoginRequest) {
+                    if (message instanceof Login) { //fixme - this handling should be better
                         user = message.getUser();
+                        dispatcher.dispatch(message);
                     } else if (isReady()) {
                         if (message.getUser().equals(user)) {
                             dispatcher.dispatch(message);

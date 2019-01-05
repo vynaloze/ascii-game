@@ -5,7 +5,7 @@ import com.pps.asciigame.common.Dispatcher;
 import com.pps.asciigame.common.configuration.Config;
 import com.pps.asciigame.common.model.User;
 import com.pps.asciigame.common.protocol.ChatEntry;
-import com.pps.asciigame.common.protocol.LoginRequest;
+import com.pps.asciigame.common.protocol.Login;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
@@ -31,7 +31,7 @@ public class Main {
             final var connection = new Connection(socket, dispatcher);
             connection.setUser(user);
             Thread.sleep(5000);
-            connection.write(new LoginRequest(user));
+            connection.write(new Login(user));
 
             // TODO remove DEBUG STUFF
             final var chatEntry = new ChatEntry(LocalDateTime.now(), user, "MEssage");

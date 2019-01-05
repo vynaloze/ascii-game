@@ -1,5 +1,6 @@
 package com.pps.asciigame.ws.web;
 
+import com.pps.asciigame.common.protocol.Message;
 import com.pps.asciigame.ws.DispatcherImplWs;
 import com.pps.asciigame.ws.chat.ChatController;
 import org.junit.Test;
@@ -28,6 +29,7 @@ public class DispatcherTest extends TestBase {
 
     @Test
     public void shouldThrowExceptionOtherwise() {
-        assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> dispatcher.dispatch(new Object()));
+        assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> dispatcher.dispatch(new Message(testUser) {
+        }));
     }
 }

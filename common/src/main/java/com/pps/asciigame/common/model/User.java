@@ -47,16 +47,11 @@ public class User implements Serializable {
 
         User user = (User) o;
 
-        if (id != null ? !id.equals(user.id) : user.id != null) {
-            return false;
-        }
-        return name != null ? name.equals(user.name) : user.name == null;
+        return name.equals(user.name);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        return result;
+        return name.hashCode();
     }
 }

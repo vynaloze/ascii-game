@@ -1,7 +1,7 @@
 package com.pps.asciigame.common.model;
 
 public enum ResourceType {
-    GOLD(100), MINERAL(200), FOOD(50);
+    GOLD(1000), MINERAL(2000), FOOD(500);
 
     private final double intialAmount;
 

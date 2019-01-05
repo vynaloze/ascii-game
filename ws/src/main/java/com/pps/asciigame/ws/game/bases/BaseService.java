@@ -2,6 +2,7 @@ package com.pps.asciigame.ws.game.bases;
 
 import com.pps.asciigame.common.JsonParser;
 import com.pps.asciigame.common.model.*;
+import com.pps.asciigame.common.util.BuildingFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

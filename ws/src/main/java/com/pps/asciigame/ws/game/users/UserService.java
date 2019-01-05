@@ -2,9 +2,10 @@ package com.pps.asciigame.ws.game.users;
 
 import com.pps.asciigame.common.model.User;
 import com.pps.asciigame.common.model.exception.DuplicateUserFoundException;
-import com.pps.asciigame.common.model.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -19,7 +20,7 @@ public class UserService {
         }
     }
 
-    public User getUserByName(final String name) {
-        return userRepository.findByName(name).orElseThrow(UserNotFoundException::new);
+    public Optional<User> getUserByName(final String name) {
+        return userRepository.findByName(name);
     }
 }
