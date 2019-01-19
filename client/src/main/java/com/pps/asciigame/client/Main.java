@@ -26,7 +26,8 @@ public class Main {
     public static void main(String[] args) {
         final var context = new AnnotationConfigApplicationContext(Main.class);
         final var main = context.getBean(Main.class);
-        main.start();
+//        main.start();
+        App.main(args);
     }
 
     private void start() {
