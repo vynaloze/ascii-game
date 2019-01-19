@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class DispatcherTest extends TestBase {
+public class DispatcherTest extends AbstractTestData {
     @Mock
     private ChatController chatController;
     @InjectMocks
