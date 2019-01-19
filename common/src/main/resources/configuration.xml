@@ -4,4 +4,5 @@
         <hostname>localhost</hostname>
         <port>8080</port>
     </server>
+    <!--todo update period here-->
 </configuration>

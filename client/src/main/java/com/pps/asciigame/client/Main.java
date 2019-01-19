@@ -1,7 +1,7 @@
 package com.pps.asciigame.client;
 
+import com.pps.asciigame.client.ui.App;
 import com.pps.asciigame.common.Connection;
-import com.pps.asciigame.common.Dispatcher;
 import com.pps.asciigame.common.configuration.Config;
 import com.pps.asciigame.common.model.Base;
 import com.pps.asciigame.common.model.BuildingType;
@@ -11,34 +11,29 @@ import com.pps.asciigame.common.protocol.BuildBuilding;
 import com.pps.asciigame.common.protocol.Login;
 import com.pps.asciigame.common.protocol.RequestBasicInfo;
 import com.pps.asciigame.common.util.BuildingFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
 import java.io.IOException;
 import java.net.Socket;
 
+@Configuration
 @ComponentScan
 public class Main {
-    @Autowired
-    private Dispatcher dispatcher;
 
     public static void main(String[] args) {
-        final var context = new AnnotationConfigApplicationContext(Main.class);
-        final var main = context.getBean(Main.class);
-//        main.start();
         App.main(args);
     }
 
-    private void start() {
+    //UNUSED - left for reference
+    private void srart() {
         final var user = new User("someUser");  //todo get username from UI
         try (final var socket = new Socket(Config.hostname(), Config.port())) {
-            final var connection = new Connection(socket, dispatcher);
+            final var connection = new Connection(socket, null);
             connection.setUser(user);
 //            Thread.sleep(5000);
             connection.write(new Login(user));
 
-            // TODO remove DEBUG STUFF
 //            final var chatEntry = new ChatEntry(LocalDateTime.now(), user, "MEssage");
 //            connection.write(chatEntry);
 //            Thread.sleep(5000);
