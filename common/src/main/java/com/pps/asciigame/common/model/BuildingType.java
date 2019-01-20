@@ -112,6 +112,30 @@ public enum BuildingType implements Serializable {
             .withType(MINERAL, 0.0)
             .withType(FOOD, 0.0)
             .build()
+    ),
+    THIEF_1(
+    		new ResourceAmounts.Builder()
+            .withType(GOLD, 2000.0)
+            .withType(MINERAL, 2000.0)
+            .withType(FOOD, 2000.0)
+            .build(),
+    new ResourceAmounts.Builder()
+            .withType(GOLD, 0.0)
+            .withType(MINERAL, 0.0)
+            .withType(FOOD, 0.0)
+            .build()
+    ),
+    ARSON_1(
+    		new ResourceAmounts.Builder()
+            .withType(GOLD, 2000.0)
+            .withType(MINERAL, 2000.0)
+            .withType(FOOD, 2000.0)
+            .build(),
+    new ResourceAmounts.Builder()
+            .withType(GOLD, 0.0)
+            .withType(MINERAL, 0.0)
+            .withType(FOOD, 0.0)
+            .build()
     );
 
     private final ResourceAmounts cost;
