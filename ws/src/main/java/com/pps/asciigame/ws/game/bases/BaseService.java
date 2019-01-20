@@ -41,6 +41,28 @@ public class BaseService {
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
     }
+    
+    public List<Base> getAllBases() {
+        return (List<Base>) baseRepository.findAll();
+    }
+    
+    public boolean isAdjacentToFriendly(final Base base) {
+    	for(Base iterator : getBasesWithOwner(base.getOwner())) {
+    		if(iterator.getX()+1 == base.getX() && iterator.getY() == base.getY()) {
+    			return true;
+    		}
+    		if(iterator.getX()-1 == base.getX() && iterator.getY() == base.getY()) {
+    			return true;
+    		}
+    		if(iterator.getX() == base.getX() && iterator.getY()-1 == base.getY()) {
+    			return true;
+    		}
+    		if(iterator.getX() == base.getX() && iterator.getY()+1 == base.getY()) {
+    			return true;
+    		}
+    	}  	
+    	return false;
+    }
 
     public double getTotalProfitOf(final ResourceType resourceType, final User user) {
         return getBasesWithOwner(user).stream()
