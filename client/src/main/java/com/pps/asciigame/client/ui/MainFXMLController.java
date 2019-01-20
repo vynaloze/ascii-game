@@ -29,12 +29,13 @@ public class MainFXMLController {
     @FXML
     private TextField message;
     @FXML
-    private Button send;
+    private Button send, build;
 
 
     @FXML
     public void initialize() {
         send.setOnAction(e -> sendChatMessage());
+        build.setOnAction(e -> ScenesManager.loadScene(ScenesManager.Scenes.BUILD));
         scheduler.scheduleAtFixedRate(this::requestBasicInfo, 0, Config.updatePeriod(), TimeUnit.SECONDS);
     }
 

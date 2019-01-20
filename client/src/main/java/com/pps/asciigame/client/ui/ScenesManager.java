@@ -43,7 +43,7 @@ public class ScenesManager {
     }
 
     public enum Scenes {
-        MAIN("/main.fxml"), LOGIN("/login.fxml"), BUILD("/build.fxml");
+        MAIN("/main.fxml"), LOGIN("/login.fxml"), BUILD("/buildBase.fxml");
 
         private final String resource;
 

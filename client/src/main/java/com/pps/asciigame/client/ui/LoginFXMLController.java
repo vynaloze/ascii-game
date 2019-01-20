@@ -5,6 +5,7 @@ import com.pps.asciigame.common.model.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,6 +23,11 @@ public class LoginFXMLController {
     @FXML
     public void initialize() {
         login.setOnAction(e -> connect());
+        username.setOnKeyPressed(e -> {
+            if (e.getCode().equals(KeyCode.ENTER)) {
+                connect();
+            }
+        });
     }
 
     private void connect() {

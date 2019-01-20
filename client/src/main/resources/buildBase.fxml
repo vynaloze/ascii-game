@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+      prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.pps.asciigame.client.ui.BuildBaseFXMLController">
+    <children>
+        <!--TODO - probably map here-->
+        <HBox prefHeight="100.0" prefWidth="200.0">
+            <children>
+                <TextField fx:id="xCoord" promptText="X"/>
+                <TextField fx:id="yCoord" promptText="Y"/>
+                <TextField fx:id="buildBaseName" promptText="Base name...."/>
+                <Button fx:id="buildBaseButton" mnemonicParsing="false" text="Build Base"/>
+            </children>
+        </HBox>
+        <Button fx:id="exitButton" mnemonicParsing="false" text="Exit"/>
+    </children>
+</VBox>
