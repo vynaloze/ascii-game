@@ -16,10 +16,15 @@ public class OperationsController {
     public void performOperation(final Operation operation) {
     	final var base = operation.getHomeBase();
     	final List<Building> buildings = baseService.getBuildingsInBase(base);
-    	if(buildings.contains(operation.getRequiredBuildings())){
-    		// todo - what should it do depending on the operation
+    	if(buildings.contains(operation.getRequiredBuilding())){    		
+    		if(calculateRange(operation) <= operation.getOperationType().getRange()){
+    			// todo - what should it do depending on the operation
+    		}
     	}
-
     }
-
+    
+    public int calculateRange(final Operation operation)
+    {
+    	return Math.abs(operation.getHomeBase().getX() - operation.getTargetBase().getX()) + Math.abs(operation.getHomeBase().getY() - operation.getTargetBase().getY());
+    }
 }
