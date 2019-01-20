@@ -11,7 +11,7 @@ public class ChatEntry extends Message {
     private final String message;
 
     public ChatEntry(final LocalDateTime dateTime, final User author, final String message) {
-        super(author);
+        super(author, true);
         this.dateTime = dateTime;
         this.message = message;
     }

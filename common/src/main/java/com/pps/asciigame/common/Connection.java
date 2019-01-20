@@ -54,7 +54,7 @@ public class Connection {
                         user = message.getUser();
                         dispatcher.dispatch(message);
                     } else if (isReady()) {
-                        if (message.getUser().equals(user)) {
+                        if (message.getUser().equals(user) || message.isBroadcast()) {
                             dispatcher.dispatch(message);
                         } else {
                             throw new RuntimeException("Some filthy hacker tries to impersonate someone else!"); //fixme
