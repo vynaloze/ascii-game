@@ -30,7 +30,7 @@ public class DispatcherImplWs implements Dispatcher {
             baseController.addBase(((BuildBase) message).getBase());
         } else if (message instanceof BuildBuilding) {
             baseController.addBuilding(((BuildBuilding) message).getBuilding());
-        } else {
+        } else { //todo - resolve operations performed
             throw new UnsupportedOperationException("Unsupported message type.");
         }
     }
