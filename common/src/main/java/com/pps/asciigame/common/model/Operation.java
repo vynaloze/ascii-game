@@ -16,16 +16,16 @@ public class Operation implements Serializable {
     @Column(name = "effects")
     private String effects;
     
-    @Column(name = "requirements")
-    private String requirements;
+    @Column(name = "requiredBuilding")
+    private Building requiredBuilding;
     
     @Column(name = "homeBase")
     private Base homeBase;
    
-    public Operation(String costs, String effects, String requirements, Base homeBase) {
+    public Operation(String costs, String effects, String requirements, Building requiredBuilding, Base homeBase) {
     	this.costs = costs;
     	this.effects = effects;
-    	this.requirements = requirements;
+    	this.requiredBuilding = requiredBuilding;
     	this.homeBase = homeBase;
     }
     
@@ -53,12 +53,12 @@ public class Operation implements Serializable {
 		this.effects = effects;
 	}
 	
-	public String getRequirements() {
-		return requirements;
+	public Building getRequiredBuildings() {
+		return requiredBuilding;
 	}
 
-	public void setRequirements(String requirements) {
-		this.requirements = requirements;
+	public void setRequirements(Building requiredBuilding) {
+		this.requiredBuilding = requiredBuilding;
 	}
 
 	public Base getHomeBase() {
@@ -98,10 +98,10 @@ public class Operation implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (requirements == null) {
-			if (other.requirements != null)
+		if (requiredBuilding == null) {
+			if (other.requiredBuilding != null)
 				return false;
-		} else if (!requirements.equals(other.requirements))
+		} else if (!requiredBuilding.equals(other.requiredBuilding))
 			return false;
 		return true;
 	}
@@ -114,13 +114,13 @@ public class Operation implements Serializable {
 		result = prime * result + ((effects == null) ? 0 : effects.hashCode());
 		result = prime * result + ((homeBase == null) ? 0 : homeBase.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((requirements == null) ? 0 : requirements.hashCode());
+		result = prime * result + ((requiredBuilding == null) ? 0 : requiredBuilding.hashCode());
 		return result;
 	}
 
 	@Override
 	public String toString() {
-		return "Operation [id=" + id + ", costs=" + costs + ", effects=" + effects + ", requirements=" + requirements
+		return "Operation [id=" + id + ", costs=" + costs + ", effects=" + effects + ", requirements=" + requiredBuilding
 				+ ", homeBase=" + homeBase + "]";
 	}
 }
