@@ -39,7 +39,7 @@ public class Requester {
         }
     }
 
-    private boolean isConnected() {
+    public boolean isConnected() {
         return connection != null && user != null;
     }
 

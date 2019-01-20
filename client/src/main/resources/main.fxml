@@ -9,4 +9,5 @@
     <Label fx:id="chatHistory"/>
     <TextField fx:id="message" promptText="Write here..."/>
     <Button fx:id="send" mnemonicParsing="false" text="Send"/>
+    <Label fx:id="basicInfoLabel"/>
 </VBox>

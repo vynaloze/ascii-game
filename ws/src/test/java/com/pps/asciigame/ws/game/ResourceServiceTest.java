@@ -1,5 +1,6 @@
 package com.pps.asciigame.ws.game;
 
+import com.pps.asciigame.common.configuration.Config;
 import com.pps.asciigame.common.model.Resource;
 import com.pps.asciigame.common.model.ResourceType;
 import com.pps.asciigame.common.model.User;
@@ -13,7 +14,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
@@ -32,8 +32,6 @@ public class ResourceServiceTest {
     private ResourceService resourceService;
     @Autowired
     private UserRepository userRepository;
-    @Value("${asciigame.resources.update_period}")
-    private int updatePeriod;
 
     private final User user = new User("testuser");
 
@@ -75,10 +73,11 @@ public class ResourceServiceTest {
         //given
         final var resource = resourceService.getByType(user, ResourceType.FOOD);
         final double profit = 3.0;
-        final int waitingPeriod = updatePeriod * 3;
-        final double expectedAmount = resource.getAmount() + waitingPeriod * profit;
+        final int waitingPeriods = 2;
+        final int actualWaitingTime = Config.updatePeriod() * waitingPeriods;
+        final double expectedAmount = resource.getAmount() + waitingPeriods * profit;
         //when
-        Thread.sleep(waitingPeriod * 1000);
+        Thread.sleep(actualWaitingTime * 1000);
         final Resource result = resourceService.updateAndGet(resource, profit);
         //then
         assertThat(result.getAmount()).isEqualTo(expectedAmount);

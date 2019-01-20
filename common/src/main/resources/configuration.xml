@@ -4,5 +4,9 @@
         <hostname>localhost</hostname>
         <port>8080</port>
     </server>
-    <!--todo update period here-->
+    <game>
+        <updatePeriod>
+            5
+        </updatePeriod>
+    </game>
 </configuration>

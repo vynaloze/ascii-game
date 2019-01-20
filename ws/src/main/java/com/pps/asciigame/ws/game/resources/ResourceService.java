@@ -1,11 +1,11 @@
 package com.pps.asciigame.ws.game.resources;
 
+import com.pps.asciigame.common.configuration.Config;
 import com.pps.asciigame.common.model.Resource;
 import com.pps.asciigame.common.model.ResourceType;
 import com.pps.asciigame.common.model.User;
 import com.pps.asciigame.common.model.exception.NegativeResourceAmountException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,8 +16,6 @@ import java.util.List;
 public class ResourceService {
     @Autowired
     private ResourceRepository resourceRepository;
-    @Value("${asciigame.resources.update_period}")
-    private int updatePeriod;
 
     public void initResourcesForUser(final User user) {
         for (final var type : ResourceType.values()) {
@@ -43,9 +41,9 @@ public class ResourceService {
 
     public synchronized Resource updateAndGet(final Resource resource, final double profit) { //fixme synchronized is shit. or screw it?
         final long secondsFromLastUpdate = resource.getLastUpdated().until(LocalDateTime.now(), ChronoUnit.SECONDS);
-        final long fullUpdatePeriods = secondsFromLastUpdate / updatePeriod;
+        final long fullUpdatePeriods = secondsFromLastUpdate / Config.updatePeriod();
         resource.setAmount(resource.getAmount() + profit * fullUpdatePeriods);
-        resource.setLastUpdated(resource.getLastUpdated().plusSeconds(fullUpdatePeriods * updatePeriod));
+        resource.setLastUpdated(resource.getLastUpdated().plusSeconds(fullUpdatePeriods * Config.updatePeriod()));
         return resourceRepository.save(resource);
     }
 

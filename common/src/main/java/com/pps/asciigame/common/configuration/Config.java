@@ -25,4 +25,8 @@ public class Config {
     public static int port() {
         return config.getInt("server.port");
     }
+
+    public static int updatePeriod() {
+        return config.getInt("game.updatePeriod");
+    }
 }
