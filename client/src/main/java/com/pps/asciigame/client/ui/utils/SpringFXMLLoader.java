@@ -1,4 +1,4 @@
-package com.pps.asciigame.client.ui;
+package com.pps.asciigame.client.ui.utils;
 
 import com.pps.asciigame.client.Main;
 import javafx.fxml.FXMLLoader;

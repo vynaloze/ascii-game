@@ -1,10 +1,13 @@
 package com.pps.asciigame.client.ui;
 
 import com.pps.asciigame.client.game.Requester;
+import com.pps.asciigame.client.ui.utils.ParameterForwarder;
+import com.pps.asciigame.client.ui.utils.ScenesManager;
 import com.pps.asciigame.common.configuration.Config;
 import com.pps.asciigame.common.model.Base;
 import com.pps.asciigame.common.model.Building;
 import com.pps.asciigame.common.model.Resource;
+import com.pps.asciigame.common.model.ResourceAmounts;
 import com.pps.asciigame.common.protocol.BasicInfo;
 import com.pps.asciigame.common.protocol.ChatEntry;
 import com.pps.asciigame.common.protocol.RequestBasicInfo;
@@ -30,13 +33,18 @@ public class MainFXMLController {
     private final ScheduledExecutorService scheduler = new ScheduledThreadPoolExecutor(1);
     @Autowired
     private Requester requester;
+    @Autowired
+    private ParameterForwarder parameterForwarder;
+
+    private ResourceAmounts currentResources;
+    private Base selectedBase;
 
     @FXML
     private Label chatHistory, resourceLabel, currentBaseLabel;
     @FXML
     private TextField message;
     @FXML
-    private Button send, buildBase;
+    private Button send, buildBase, buildBuilding;
     @FXML
     private ListView<Base> basesList;
     @FXML
@@ -55,6 +63,12 @@ public class MainFXMLController {
         });
         // build base
         buildBase.setOnAction(e -> ScenesManager.loadScene(ScenesManager.Scenes.BUILD_BASE));
+        // build building
+        buildBuilding.setOnAction(e -> {
+            parameterForwarder.pass(currentResources, ResourceAmounts.class);
+            parameterForwarder.pass(selectedBase, Base.class);
+            ScenesManager.loadScene(ScenesManager.Scenes.BUILD_BUILDING);
+        });
         // periodic update
         scheduler.scheduleAtFixedRate(this::requestBasicInfo, 0, Config.updatePeriod(), TimeUnit.SECONDS);
         // listviews
@@ -84,9 +98,13 @@ public class MainFXMLController {
             updateBases(basicInfo.getBases());
         });
         updateBuildings(basicInfo.getBuildings());
+        if (selectedBase != null) {
+            showBuildingsForCurrentBase(selectedBase);
+        }
     }
 
     private void updateResources(final List<Resource> resources) {
+        currentResources = new ResourceAmounts.Builder().fromList(resources);
         resources.sort(Comparator.comparingInt(o -> o.getType().ordinal()));
         final var format = "|| %s:    %10d || %s: %10d || %s:    %10d ||";
         final var text = String.format(format,
@@ -111,13 +129,15 @@ public class MainFXMLController {
         });
         basesList.setOnMouseClicked(e -> {
             final var base = basesList.getSelectionModel().getSelectedItem();
+            selectedBase = base;
             showBuildingsForCurrentBase(base);
+            buildBuilding.setVisible(true);
         });
     }
 
     private void showBuildingsForCurrentBase(final Base base) {
         Platform.runLater(() -> {
-            currentBaseLabel.setText("Selected base: " + base.getName());
+            currentBaseLabel.setText("Selected base: " + base.getName() + " Buildings:");
             buildingsList.getItems().clear();
             buildingsList.getItems().addAll(allBuildings.stream().filter(building -> building.getBase().equals(base)).collect(Collectors.toList()));
 

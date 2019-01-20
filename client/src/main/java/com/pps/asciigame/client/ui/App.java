@@ -1,5 +1,6 @@
 package com.pps.asciigame.client.ui;
 
+import com.pps.asciigame.client.ui.utils.ScenesManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

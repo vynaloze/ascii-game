@@ -1,4 +1,4 @@
-package com.pps.asciigame.client.ui;
+package com.pps.asciigame.client.ui.utils;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
-import static com.pps.asciigame.client.ui.ScenesManager.Scenes.MAIN;
+import static com.pps.asciigame.client.ui.utils.ScenesManager.Scenes.MAIN;
 
 public class ScenesManager {
     private static final Logger LOGGER = LogManager.getLogger(ScenesManager.class);
@@ -43,7 +43,7 @@ public class ScenesManager {
     }
 
     public enum Scenes {
-        MAIN("/main.fxml"), LOGIN("/login.fxml"), BUILD_BASE("/buildBase.fxml");
+        MAIN("/main.fxml"), LOGIN("/login.fxml"), BUILD_BASE("/buildBase.fxml"), BUILD_BUILDING("/buildBuilding.fxml");
 
         private final String resource;
 

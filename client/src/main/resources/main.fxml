@@ -10,14 +10,17 @@
             <Font size="18.0"/>
         </font>
     </Label>
+    <Label text="Bases:"/>
     <ListView fx:id="basesList" prefHeight="200.0" prefWidth="200.0"/>
     <Label fx:id="currentBaseLabel" layoutX="10.0" layoutY="10.0">
         <font>
             <Font size="14.0"/>
         </font>
     </Label>
+    <Label text="Buildings:"/>
     <ListView fx:id="buildingsList" layoutX="10.0" layoutY="45.0" prefHeight="200.0" prefWidth="200.0"/>
-    <Button fx:id="buildBase" mnemonicParsing="false" text="Build sth"/>
+    <Button fx:id="buildBase" mnemonicParsing="false" text="Build Base"/>
+    <Button fx:id="buildBuilding" mnemonicParsing="false" text="Build Building" visible="false"/>
     <Label fx:id="chatHistory"/>
     <TextField fx:id="message" promptText="Write here..."/>
     <Button fx:id="send" mnemonicParsing="false" text="Send"/>
