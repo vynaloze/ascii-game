@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
 <VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pps.asciigame.client.ui.MainFXMLController">
+    <Label fx:id="resourceLabel">
+        <font>
+            <Font size="24.0"/>
+        </font>
+    </Label>
+    <!--<ListView fx:id="basesList" prefHeight="200.0" prefWidth="200.0" />-->
+    <!--<Label fx:id="currentBaseLabel" layoutX="10.0" layoutY="10.0">-->
+    <!--<font>-->
+    <!--<Font size="24.0" />-->
+    <!--</font>-->
+    <!--</Label>-->
+    <!--<ListView fx:id="buildingsList" layoutX="10.0" layoutY="45.0" prefHeight="200.0" prefWidth="200.0" />-->
+    <Button fx:id="buildBase" mnemonicParsing="false" text="Build sth"/>
     <Label fx:id="chatHistory"/>
     <TextField fx:id="message" promptText="Write here..."/>
     <Button fx:id="send" mnemonicParsing="false" text="Send"/>
-    <Label fx:id="basicInfoLabel"/>
-    <Button fx:id="build" mnemonicParsing="false" text="Build sth"/>
 </VBox>

@@ -2,6 +2,7 @@ package com.pps.asciigame.client.ui;
 
 import com.pps.asciigame.client.game.Requester;
 import com.pps.asciigame.common.configuration.Config;
+import com.pps.asciigame.common.model.Resource;
 import com.pps.asciigame.common.protocol.BasicInfo;
 import com.pps.asciigame.common.protocol.ChatEntry;
 import com.pps.asciigame.common.protocol.RequestBasicInfo;
@@ -14,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -25,17 +28,17 @@ public class MainFXMLController {
     private Requester requester;
 
     @FXML
-    private Label chatHistory, basicInfoLabel;
+    private Label chatHistory, resourceLabel;
     @FXML
     private TextField message;
     @FXML
-    private Button send, build;
+    private Button send, buildBase;
 
 
     @FXML
     public void initialize() {
         send.setOnAction(e -> sendChatMessage());
-        build.setOnAction(e -> ScenesManager.loadScene(ScenesManager.Scenes.BUILD));
+        buildBase.setOnAction(e -> ScenesManager.loadScene(ScenesManager.Scenes.BUILD));
         scheduler.scheduleAtFixedRate(this::requestBasicInfo, 0, Config.updatePeriod(), TimeUnit.SECONDS);
     }
 
@@ -58,6 +61,16 @@ public class MainFXMLController {
     }
 
     public void updateBasicInfo(final BasicInfo basicInfo) {
-        Platform.runLater(() -> basicInfoLabel.setText(basicInfo.toString()));
+        updateResources(basicInfo.getResources());
+    }
+
+    private void updateResources(final List<Resource> resources) {
+        resources.sort(Comparator.comparingInt(o -> o.getType().ordinal()));
+        final var format = "|| %s:    %10d || %s: %10d || %s:    %10d ||";
+        final var text = String.format(format,
+                resources.get(0).getType(), resources.get(0).getAmount().intValue(),
+                resources.get(1).getType(), resources.get(1).getAmount().intValue(),
+                resources.get(2).getType(), resources.get(2).getAmount().intValue());
+        Platform.runLater(() -> resourceLabel.setText(text));
     }
 }
