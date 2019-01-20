@@ -12,7 +12,7 @@ public class Resource implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user", referencedColumnName = "id")
     private User user;
 

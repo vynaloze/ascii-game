@@ -6,6 +6,7 @@ import com.pps.asciigame.common.protocol.BuildBase;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,6 +25,17 @@ public class BuildBaseFXMLController {
     public void initialize() {
         buildBaseButton.setOnAction(e -> buildBase());
         exitButton.setOnAction(e -> closeStage());
+        buildBaseName.setOnKeyPressed(e -> {
+            if (e.getCode().equals(KeyCode.ENTER)) {
+                buildBase();
+                closeStage();
+            }
+        });
+    }
+
+    private void closeStage() {
+        final var stage = (Stage) exitButton.getScene().getWindow();
+        stage.close();
     }
 
     private void buildBase() {
@@ -31,10 +43,5 @@ public class BuildBaseFXMLController {
         final int y = Integer.parseInt(yCoord.getText());
         final var base = new Base(x, y, buildBaseName.getText(), requester.getUser());
         requester.sendRequest(new BuildBase(requester.getUser(), base));
-    }
-
-    private void closeStage() {
-        final var stage = (Stage) exitButton.getScene().getWindow();
-        stage.close();
     }
 }

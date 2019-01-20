@@ -11,7 +11,7 @@ public class Building implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "bases", referencedColumnName = "id")
     private Base base;
 

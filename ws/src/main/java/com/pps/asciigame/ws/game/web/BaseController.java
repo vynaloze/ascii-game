@@ -24,7 +24,6 @@ public class BaseController {
     @Autowired
     private ResourceService resourceService;
 
-    //todo - it should be PROBABLY pushed periodically to client - without need to request
     public void provideBasicInfo(final User user) {
         final List<Resource> resources = updateAndGetAmounts(user);
         final List<Base> bases = baseService.getBasesWithOwner(user);

@@ -20,7 +20,7 @@ public class Base implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "owner", referencedColumnName = "id")
     private User owner;
 
