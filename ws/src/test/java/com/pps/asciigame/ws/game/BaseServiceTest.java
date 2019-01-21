@@ -63,6 +63,32 @@ public class BaseServiceTest {
     }
     
     @Test
+    public void shouldRemoveBuilding() {
+        //given
+        final var base = new Base(0, 0, "testbase", user);
+        final var building = BuildingFactory.createBuilding(base, BuildingType.A);
+        baseService.addBase(base);
+        baseService.addBuilding(building);
+        //when
+        baseService.removeBuilding(building);
+        //then
+        assertThat(baseService.getBuildingsInBase(base)).hasSize(1);
+    }
+    
+    @Test
+    public void shouldGetCentralBuilding() {
+        //given
+        final var base = new Base(0, 0, "testbase", user);
+        final var building = BuildingFactory.createBuilding(base, BuildingType.CENTRAL);
+        baseService.addBase(base);
+        baseService.addBuilding(building);
+        //when
+        
+        //then
+        assertThat(baseService.getRandomBuilding(base)).isEqualTo(building);
+    }
+    
+    @Test
     public void shouldReturnAllBases() {
         //given
         final var base = new Base(0, 0, "testbase", user);
