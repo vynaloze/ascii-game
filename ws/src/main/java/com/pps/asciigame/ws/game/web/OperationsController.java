@@ -29,12 +29,11 @@ public class OperationsController {
     	final List<Building> buildings = baseService.getBuildingsInBase(base);  		
 		if(calculateRange(operation) <= operation.getOperationType().getRange()){
 			if(operation.getOperationType().getEffect().equals("steal")) {
-				stealResources(operation, user);
-                LOGGER.info(user.getName() + " has stolen resources from " + operation.getTargetBase().getOwner().getName());
-			}
-			else if (operation.getOperationType().getEffect().equals("burn")) { 
-				burnBuilding(operation, user);
-                LOGGER.info(user.getName() + " has burned sth from " + operation.getTargetBase().getOwner().getName());
+                LOGGER.info(user.getName() + " tries to steal resources from " + operation.getTargetBase().getOwner().getName());
+                stealResources(operation, user);
+			} else if (operation.getOperationType().getEffect().equals("burn")) {
+                LOGGER.info(user.getName() + " tries to burn sth from " + operation.getTargetBase().getOwner().getName());
+                burnBuilding(operation, user);
 			}
 		}
 		else
@@ -56,8 +55,10 @@ public class OperationsController {
             resource.setAmount(resource.getAmount() - resource.getAmount() * operation.getOperationType().getPercent());
             resourceService.update(resource);
         });
-        
-        connectionManager.pushTo(user, new Confirmation(user, "Success"));
+
+        connectionManager.pushTo(user, new Confirmation(user, "Success")); // thief
+        final var victim = operation.getTargetBase().getOwner();
+        connectionManager.pushTo(victim, new Confirmation(victim, "U have been robbed.")); //todo better all these confirmation messages, please
         
     }
     
@@ -71,10 +72,14 @@ public class OperationsController {
         		baseService.removeBase(operation.getTargetBase());
         	}
         	connectionManager.pushTo(user, new Confirmation(user, "Success"));
+            final var victim = operation.getTargetBase().getOwner();
+            connectionManager.pushTo(victim, new Confirmation(victim, "U have been burned [from ???]"));
     	}
     	else
     	{
     		connectionManager.pushTo(user, new Confirmation(user, "Failure"));
+            final var victim = operation.getTargetBase().getOwner();
+            connectionManager.pushTo(victim, new Confirmation(victim, "U managed to escape fire from"));
     	}
     }
     

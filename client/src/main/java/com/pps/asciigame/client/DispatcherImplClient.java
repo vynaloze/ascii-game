@@ -3,11 +3,7 @@ package com.pps.asciigame.client;
 import com.pps.asciigame.client.chat.ChatController;
 import com.pps.asciigame.client.game.DataReceivingController;
 import com.pps.asciigame.common.Dispatcher;
-import com.pps.asciigame.common.protocol.BasicInfo;
-import com.pps.asciigame.common.protocol.ChatEntry;
-import com.pps.asciigame.common.protocol.Confirmation;
-import com.pps.asciigame.common.protocol.MapData;
-import com.pps.asciigame.common.protocol.Message;
+import com.pps.asciigame.common.protocol.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,7 +24,7 @@ public class DispatcherImplClient implements Dispatcher {
         } else if (message instanceof MapData) {
             dataReceivingController.updateMapData((MapData) message);
         } else if (message instanceof Confirmation) {
-        	//todo - where to send it?
+            dataReceivingController.showConfirmation((Confirmation) message);
         } else {
             throw new UnsupportedOperationException("Unsupported message type.");
         }
