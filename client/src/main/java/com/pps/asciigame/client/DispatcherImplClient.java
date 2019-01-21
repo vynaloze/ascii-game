@@ -26,10 +26,10 @@ public class DispatcherImplClient implements Dispatcher {
             chatController.handle((ChatEntry) message);
         } else if (message instanceof BasicInfo) {
             dataReceivingController.updateBasicInfo((BasicInfo) message);
-        } else if (message instanceof BuildBuilding) {
-            // todo - what shoud go here?
-        } else if (message instanceof PerformOperation) {
-            // todo - what should go here
+//        } else if (message instanceof BuildBuilding) {
+//            // todo - what shoud go here?
+//        } else if (message instanceof PerformOperation) {
+//            // todo - what should go here
         } else {
             throw new UnsupportedOperationException("Unsupported message type.");
         }

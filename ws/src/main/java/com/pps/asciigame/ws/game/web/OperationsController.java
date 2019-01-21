@@ -7,8 +7,6 @@ import org.springframework.stereotype.Component;
 
 import com.pps.asciigame.common.model.Building;
 import com.pps.asciigame.common.model.Operation;
-import com.pps.asciigame.common.model.Resource;
-import com.pps.asciigame.common.model.ResourceAmounts;
 import com.pps.asciigame.ws.game.bases.BaseService;
 import com.pps.asciigame.ws.game.resources.ResourceService;
 
@@ -22,17 +20,15 @@ public class OperationsController {
 	
     public void performOperation(final Operation operation) {
     	final var base = operation.getHomeBase();
-    	final List<Building> buildings = baseService.getBuildingsInBase(base);
-    	if(buildings.contains(operation.getRequiredBuilding())){    		
-    		if(calculateRange(operation) <= operation.getOperationType().getRange()){
-    			if(operation.getOperationType().getEffect().equals("steal")) {
-    				stealResources(operation);
-    			}
-    			else if (operation.getOperationType().getEffect().equals("burn")) { 
-    				burnBuilding(operation);
-    			}
-    		}
-    	}
+    	final List<Building> buildings = baseService.getBuildingsInBase(base);  		
+		if(calculateRange(operation) <= operation.getOperationType().getRange()){
+			if(operation.getOperationType().getEffect().equals("steal")) {
+				stealResources(operation);
+			}
+			else if (operation.getOperationType().getEffect().equals("burn")) { 
+				burnBuilding(operation);
+			}
+		}
     }
     
     public void stealResources(final Operation operation) {
@@ -49,7 +45,6 @@ public class OperationsController {
             resourceService.update(resource);
         });
         
-        
     }
     
     public void burnBuilding(final Operation operation) {
@@ -64,7 +59,7 @@ public class OperationsController {
     	}
     	else
     	{
-    		//todo - mission failed, nothing happens
+    		
     	}
     }
     
