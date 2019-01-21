@@ -3,6 +3,7 @@ package com.pps.asciigame.ws.game.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.pps.asciigame.common.model.Building;
 import com.pps.asciigame.common.model.Operation;
@@ -11,6 +12,7 @@ import com.pps.asciigame.common.model.ResourceAmounts;
 import com.pps.asciigame.ws.game.bases.BaseService;
 import com.pps.asciigame.ws.game.resources.ResourceService;
 
+@Component
 public class OperationsController {
 	
 	@Autowired
