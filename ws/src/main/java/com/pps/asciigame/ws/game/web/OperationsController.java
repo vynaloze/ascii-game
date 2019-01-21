@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 import com.pps.asciigame.common.model.Building;
 import com.pps.asciigame.common.model.Operation;
+import com.pps.asciigame.common.protocol.MapData;
+import com.pps.asciigame.ws.ConnectionManager;
 import com.pps.asciigame.ws.game.bases.BaseService;
 import com.pps.asciigame.ws.game.resources.ResourceService;
 
@@ -17,6 +19,8 @@ public class OperationsController {
     private BaseService baseService;
 	@Autowired
 	private ResourceService resourceService;
+    @Autowired
+    private ConnectionManager connectionManager;
 	
     public void performOperation(final Operation operation) {
     	final var base = operation.getHomeBase();
@@ -28,6 +32,11 @@ public class OperationsController {
 			else if (operation.getOperationType().getEffect().equals("burn")) { 
 				burnBuilding(operation);
 			}
+		}
+		else
+		{
+			//operation failed
+			//connectionManager.pushTo(user, new MapData(user, bases));
 		}
     }
     
