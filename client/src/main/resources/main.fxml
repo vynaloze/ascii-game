@@ -10,6 +10,7 @@
             <Font size="18.0"/>
         </font>
     </Label>
+    <Button fx:id="map" mnemonicParsing="false" text="MAP"/>
     <Label text="Bases:"/>
     <ListView fx:id="basesList" prefHeight="200.0" prefWidth="200.0"/>
     <Label fx:id="currentBaseLabel" layoutX="10.0" layoutY="10.0">

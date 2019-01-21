@@ -1,6 +1,7 @@
 package com.pps.asciigame.client.ui;
 
 import com.pps.asciigame.client.game.Requester;
+import com.pps.asciigame.client.ui.map.MapUI;
 import com.pps.asciigame.client.ui.utils.ParameterForwarder;
 import com.pps.asciigame.client.ui.utils.ScenesManager;
 import com.pps.asciigame.common.configuration.Config;
@@ -44,7 +45,7 @@ public class MainFXMLController {
     @FXML
     private TextField message;
     @FXML
-    private Button send, buildBase, buildBuilding;
+    private Button send, buildBase, buildBuilding, map;
     @FXML
     private ListView<Base> basesList;
     @FXML
@@ -74,6 +75,8 @@ public class MainFXMLController {
         // listviews
         initBaseListView();
         initBuildingsListView();
+        // map
+        map.setOnAction(e -> ScenesManager.loadScene(MapUI.class));
     }
 
     private void sendChatMessage() {

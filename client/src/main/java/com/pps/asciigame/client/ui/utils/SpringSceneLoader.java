@@ -7,7 +7,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import java.io.IOException;
 
-public class SpringFXMLLoader {
+public class SpringSceneLoader {
     private static final ApplicationContext applicationContext = new AnnotationConfigApplicationContext(Main.class);
 
     public Object load(final String url) throws IOException {
@@ -16,5 +16,9 @@ public class SpringFXMLLoader {
             fxmlLoader.setControllerFactory(applicationContext::getBean);
             return fxmlLoader.load(fxmlInputStream);
         }
+    }
+
+    public <T> T load(final Class<T> clazz) {
+        return applicationContext.getBean(clazz);
     }
 }

@@ -3,6 +3,7 @@ package com.pps.asciigame.ws.game.web;
 import com.pps.asciigame.common.JsonParser;
 import com.pps.asciigame.common.model.*;
 import com.pps.asciigame.common.protocol.BasicInfo;
+import com.pps.asciigame.common.protocol.MapData;
 import com.pps.asciigame.ws.ConnectionManager;
 import com.pps.asciigame.ws.game.bases.BaseService;
 import com.pps.asciigame.ws.game.resources.ResourceService;
@@ -34,7 +35,7 @@ public class BaseController {
 
     public void addBase(final Base base) {
     	if(!baseService.getAllBases().contains(base)) {
-    		if(baseService.isAdjacentToFriendly(base)) {
+            if (baseService.isAdjacentToFriendly(base) || baseService.getBasesWithOwner(base.getOwner()).size() == 0) {
     			baseService.addBase(base);
     			provideBasicInfo(base.getOwner());
     		}
@@ -54,6 +55,11 @@ public class BaseController {
         //todo give some feedback on result
         //todo test for this controller
         //todo fix todos :)
+    }
+
+    public void sendAllBases(final User user) {
+        final var bases = baseService.getAllBases();
+        connectionManager.pushTo(user, new MapData(user, bases));
     }
 
     private List<Resource> updateAndGetAmounts(final User user) {

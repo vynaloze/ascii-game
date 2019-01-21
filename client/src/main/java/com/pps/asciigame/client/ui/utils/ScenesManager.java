@@ -1,5 +1,6 @@
 package com.pps.asciigame.client.ui.utils;
 
+import com.pps.asciigame.client.ui.CodedScene;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
@@ -13,7 +14,7 @@ import static com.pps.asciigame.client.ui.utils.ScenesManager.Scenes.MAIN;
 
 public class ScenesManager {
     private static final Logger LOGGER = LogManager.getLogger(ScenesManager.class);
-    private static final SpringFXMLLoader loader = new SpringFXMLLoader();
+    private static final SpringSceneLoader loader = new SpringSceneLoader();
     private static Scene parentScene;
 
     public static void initParentScene(final Stage primaryStage) {
@@ -40,6 +41,12 @@ public class ScenesManager {
         } catch (IOException e) {
             LOGGER.error(e);
         }
+    }
+
+    public static <T extends CodedScene> void loadScene(final Class<T> clazz) {
+        final CodedScene scene = loader.load(clazz);
+        scene.initOwner(parentScene.getWindow());
+        scene.show();
     }
 
     public enum Scenes {
