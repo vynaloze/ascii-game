@@ -1,6 +1,8 @@
 package com.pps.asciigame.client.ui;
 
 import com.pps.asciigame.client.game.Requester;
+import com.pps.asciigame.client.ui.utils.Coord;
+import com.pps.asciigame.client.ui.utils.ParameterForwarder;
 import com.pps.asciigame.common.model.Base;
 import com.pps.asciigame.common.protocol.BuildBase;
 import javafx.fxml.FXML;
@@ -15,9 +17,11 @@ import org.springframework.stereotype.Component;
 public class BuildBaseFXMLController {
     @Autowired
     private Requester requester;
+    @Autowired
+    private ParameterForwarder parameterForwarder;
 
     @FXML
-    private TextField buildBaseName, xCoord, yCoord;
+    private TextField buildBaseName;
     @FXML
     private Button buildBaseButton, exitButton;
 
@@ -39,9 +43,10 @@ public class BuildBaseFXMLController {
     }
 
     private void buildBase() {
-        final int x = Integer.parseInt(xCoord.getText());
-        final int y = Integer.parseInt(yCoord.getText());
-        final var base = new Base(x, y, buildBaseName.getText(), requester.getUser());
+        final var coord = parameterForwarder.get(Coord.class);
+        final var base = new Base(coord.getX(), coord.getY(), buildBaseName.getText(), requester.getUser());
         requester.sendRequest(new BuildBase(requester.getUser(), base));
+        parameterForwarder.remove(Coord.class);
+        closeStage();
     }
 }

@@ -1,6 +1,7 @@
 package com.pps.asciigame.client.ui;
 
 import com.pps.asciigame.client.game.Requester;
+import com.pps.asciigame.client.ui.map.MapUI;
 import com.pps.asciigame.client.ui.utils.ParameterForwarder;
 import com.pps.asciigame.client.ui.utils.ScenesManager;
 import com.pps.asciigame.common.configuration.Config;
@@ -44,11 +45,14 @@ public class MainFXMLController {
     @FXML
     private TextField message;
     @FXML
-    private Button send, buildBase, buildBuilding;
+    private Button send, buildBuilding, map, exit;
     @FXML
     private ListView<Base> basesList;
     @FXML
     private ListView<Building> buildingsList;
+    @FXML
+    private ScrollPane chatScroller;
+
     private List<Building> allBuildings;
 
 
@@ -61,11 +65,9 @@ public class MainFXMLController {
                 sendChatMessage();
             }
         });
-        // build base
-        buildBase.setOnAction(e -> ScenesManager.loadScene(ScenesManager.Scenes.BUILD_BASE));
-        // build building
+        chatScroller.vvalueProperty().bind(chatHistory.heightProperty());
+        // build building (secondary way)
         buildBuilding.setOnAction(e -> {
-            parameterForwarder.pass(currentResources, ResourceAmounts.class);
             parameterForwarder.pass(selectedBase, Base.class);
             ScenesManager.loadScene(ScenesManager.Scenes.BUILD_BUILDING);
         });
@@ -74,6 +76,10 @@ public class MainFXMLController {
         // listviews
         initBaseListView();
         initBuildingsListView();
+        // map
+        map.setOnAction(e -> ScenesManager.loadScene(MapUI.class));
+        // exit
+        exit.setOnAction(e -> System.exit(0));
     }
 
     private void sendChatMessage() {
@@ -105,6 +111,7 @@ public class MainFXMLController {
 
     private void updateResources(final List<Resource> resources) {
         currentResources = new ResourceAmounts.Builder().fromList(resources);
+        parameterForwarder.pass(currentResources, ResourceAmounts.class);
         resources.sort(Comparator.comparingInt(o -> o.getType().ordinal()));
         final var format = "|| %s:    %10d || %s: %10d || %s:    %10d ||";
         final var text = String.format(format,
