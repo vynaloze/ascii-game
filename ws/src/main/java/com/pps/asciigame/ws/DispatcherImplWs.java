@@ -5,6 +5,8 @@ import com.pps.asciigame.common.protocol.*;
 import com.pps.asciigame.ws.chat.ChatController;
 import com.pps.asciigame.ws.game.web.BaseController;
 import com.pps.asciigame.ws.game.web.LoginController;
+import com.pps.asciigame.ws.game.web.OperationsController;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +18,8 @@ public class DispatcherImplWs implements Dispatcher {
     private LoginController loginController;
     @Autowired
     private BaseController baseController;
+    @Autowired
+    private OperationsController operationController;
 
     @Override
     @SuppressWarnings("unchecked")
@@ -30,7 +34,9 @@ public class DispatcherImplWs implements Dispatcher {
             baseController.addBase(((BuildBase) message).getBase());
         } else if (message instanceof BuildBuilding) {
             baseController.addBuilding(((BuildBuilding) message).getBuilding());
-        } else {
+        } else if (message instanceof PerformOperation) {
+        	operationController.performOperation(((PerformOperation) message).getOperation()); //todo - unfinished
+        } else { 
             throw new UnsupportedOperationException("Unsupported message type.");
         }
     }

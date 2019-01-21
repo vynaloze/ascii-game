@@ -33,8 +33,13 @@ public class BaseController {
     }
 
     public void addBase(final Base base) {
-        baseService.addBase(base); //todo when it is possible to add new base?
-        provideBasicInfo(base.getOwner());
+    	if(!baseService.getAllBases().contains(base)){
+    		if(baseService.isAdjacentToFriendly(base)){
+    			baseService.addBase(base);
+    			provideBasicInfo(base.getOwner());
+    		}
+    	}
+        //todo - what happens when player can't build base there
     }
 
     public void addBuilding(final Building building) {
