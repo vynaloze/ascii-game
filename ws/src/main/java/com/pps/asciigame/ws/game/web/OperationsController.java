@@ -46,8 +46,19 @@ public class OperationsController {
     }
     
     public void burnBuilding(final Operation operation) {
-    	final var building = baseService.getRandomBuilding(operation.getTargetBase());
-    	baseService.removeBuilding(building);
+    	final double roll = Math.random();
+    	if(roll < operation.getOperationType().getPercent()) {
+    		final var building = baseService.getRandomBuilding(operation.getTargetBase());
+        	baseService.removeBuilding(building);        	
+        	if(baseService.getBuildingsInBase(operation.getTargetBase()).isEmpty())
+        	{
+        		baseService.removeBase(operation.getTargetBase());
+        	}
+    	}
+    	else
+    	{
+    		//todo - mission failed, nothing happens
+    	}
     }
     
     public int calculateRange(final Operation operation)

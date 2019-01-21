@@ -22,6 +22,10 @@ public class BaseService {
         final var centralBuilding = BuildingFactory.createBuilding(base, BuildingType.CENTRAL);
         buildingRepository.save(centralBuilding);
     }
+    
+    public void removeBase(final Base base) {
+    	baseRepository.delete(base);
+    }
 
     public void addBuilding(final Building building) {
         buildingRepository.save(building);
