@@ -30,9 +30,9 @@ public class DispatcherImplWs implements Dispatcher {
         } else if (message instanceof RequestBasicInfo) {
             baseController.provideBasicInfo(message.getUser());
         } else if (message instanceof BuildBase) {
-            baseController.addBase(((BuildBase) message).getBase());
+            baseController.addBase(((BuildBase) message).getBase(), message.getUser());
         } else if (message instanceof BuildBuilding) {
-            baseController.addBuilding(((BuildBuilding) message).getBuilding());
+            baseController.addBuilding(((BuildBuilding) message).getBuilding(), message.getUser());
         } else if (message instanceof PerformOperation) {
         	operationController.performOperation(((PerformOperation) message).getOperation(), message.getUser());
         } else if (message instanceof RequestMapData) {

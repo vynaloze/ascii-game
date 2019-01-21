@@ -3,6 +3,7 @@ package com.pps.asciigame.ws.game.web;
 import com.pps.asciigame.common.JsonParser;
 import com.pps.asciigame.common.model.*;
 import com.pps.asciigame.common.protocol.BasicInfo;
+import com.pps.asciigame.common.protocol.Confirmation;
 import com.pps.asciigame.common.protocol.MapData;
 import com.pps.asciigame.ws.ConnectionManager;
 import com.pps.asciigame.ws.game.bases.BaseService;
@@ -33,17 +34,23 @@ public class BaseController {
         connectionManager.pushTo(user, basicInfo);
     }
 
-    public void addBase(final Base base) {
+    public void addBase(final Base base, User user) {
     	if(!baseService.getAllBases().contains(base)) {
             if (baseService.isAdjacentToFriendly(base) || baseService.getBasesWithOwner(base.getOwner()).size() == 0) {
     			baseService.addBase(base);
     			provideBasicInfo(base.getOwner());
+    			connectionManager.pushTo(user, new Confirmation(user, "Success"));
     		}
+            else {
+            connectionManager.pushTo(user, new Confirmation(user, "Failure"));
+            }
     	}
-        //todo - what happens when player can't build base there
+    	else {
+    		connectionManager.pushTo(user, new Confirmation(user, "Failure"));
+    	}
     }
 
-    public void addBuilding(final Building building) {
+    public void addBuilding(final Building building, User user2) {
         final var user = building.getBase().getOwner();
         final var resources = resourceService.getAll(user);
         final var costs = JsonParser.asObject(building.getCosts(), ResourceAmounts.class);
@@ -51,10 +58,11 @@ public class BaseController {
             updateResources(resources, costs);
             baseService.addBuilding(building);
             provideBasicInfo(user);
+            connectionManager.pushTo(user, new Confirmation(user, "Success"));
         }
-        //todo give some feedback on result
-        //todo test for this controller
-        //todo fix todos :)
+        else {
+        	connectionManager.pushTo(user, new Confirmation(user, "Failure"));
+        }
     }
 
     public void sendAllBases(final User user) {
