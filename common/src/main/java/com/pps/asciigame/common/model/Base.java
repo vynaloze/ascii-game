@@ -94,9 +94,6 @@ public class Base implements Serializable {
         if (y != base.y) {
             return false;
         }
-        if (name != null ? !name.equals(base.name) : base.name != null) {
-            return false;
-        }
         return owner != null ? owner.equals(base.owner) : base.owner == null;
     }
 
@@ -105,7 +102,6 @@ public class Base implements Serializable {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + x;
         result = 31 * result + y;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (owner != null ? owner.hashCode() : 0);
         return result;
     }

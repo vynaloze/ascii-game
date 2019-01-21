@@ -33,8 +33,8 @@ public class BaseController {
     }
 
     public void addBase(final Base base) {
-    	if(!baseService.getAllBases().contains(base)){
-    		if(baseService.isAdjacentToFriendly(base)){
+    	if(!baseService.getAllBases().contains(base)) {
+    		if(baseService.isAdjacentToFriendly(base)) {
     			baseService.addBase(base);
     			provideBasicInfo(base.getOwner());
     		}
