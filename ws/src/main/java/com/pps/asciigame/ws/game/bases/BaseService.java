@@ -20,8 +20,9 @@ public class BaseService {
 
     public Base addBase(final Base base) {        
         final var centralBuilding = BuildingFactory.createBuilding(base, BuildingType.CENTRAL);
+        final var savedBase = baseRepository.save(base);
         buildingRepository.save(centralBuilding);
-        return baseRepository.save(base);
+        return savedBase;
     }
     
     public void removeBase(final Base base) {

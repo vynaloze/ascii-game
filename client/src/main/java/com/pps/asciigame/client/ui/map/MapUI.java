@@ -134,7 +134,8 @@ public class MapUI implements CodedScene {
             });
         } else {
             button.setOnAction(e -> {
-                // todo operations here
+                parameterForwarder.pass(base.get(), Base.class);
+                ScenesManager.loadScene(ScenesManager.Scenes.PERFORM_OPERATION);
             });
         }
     }
