@@ -1,21 +1,47 @@
 package com.pps.asciigame.common.model;
 
+import static com.pps.asciigame.common.model.ResourceType.FOOD;
+import static com.pps.asciigame.common.model.ResourceType.GOLD;
+import static com.pps.asciigame.common.model.ResourceType.MINERAL;
+
 import java.io.Serializable;
 
 public enum OperationType implements Serializable {
-	STEAL_1(5, "steal", 0.1),
-	BURN_1(5, "burn", 0.1),
-	STEAL_2(10, "steal", 0.2),
-	BURN_2(10, "burn", 0.2);
+	STEAL_1(5, "steal", 0.1, 
+			new ResourceAmounts.Builder()
+            .withType(GOLD, 100.0)
+            .withType(MINERAL, 100.0)
+            .withType(FOOD, 50.0)
+            .build()),
+	BURN_1(5, "burn", 0.1,
+			new ResourceAmounts.Builder()
+            .withType(GOLD, 100.0)
+            .withType(MINERAL, 100.0)
+            .withType(FOOD, 50.0)
+            .build()),
+	STEAL_2(10, "steal", 0.2,
+			new ResourceAmounts.Builder()
+            .withType(GOLD, 100.0)
+            .withType(MINERAL, 100.0)
+            .withType(FOOD, 50.0)
+            .build()),
+	BURN_2(10, "burn", 0.2,
+			new ResourceAmounts.Builder()
+            .withType(GOLD, 100.0)
+            .withType(MINERAL, 100.0)
+            .withType(FOOD, 50.0)
+            .build());
 	
 	private final int range;
 	private final String effect;
 	private final double percent;
+	private final ResourceAmounts costs;
 	
-	OperationType(final int range, final String effect, final double percent){
+	OperationType(final int range, final String effect, final double percent, final ResourceAmounts costs){
 		this.range = range;
 		this.effect = effect;
 		this.percent = percent;
+		this.costs = costs;
 	}
 
 	public int getRange() {
@@ -28,6 +54,10 @@ public enum OperationType implements Serializable {
 
 	public double getPercent() {
 		return percent;
+	}
+
+	public ResourceAmounts getCosts() {
+		return costs;
 	}
 	
 }

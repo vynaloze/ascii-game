@@ -9,33 +9,32 @@ public class Operation implements Serializable {
     @GeneratedValue
     @Column(name = "id")
     private Long id;
-
-    @Column(name = "costs")
-    private String costs;
-
-    @Column(name = "effects")
-    private String effects;
-    
-    @Column(name = "requiredBuilding")
-    private Building requiredBuilding;
-    
+	
     @Column(name = "homeBase")
     private Base homeBase;
     
     @Column(name = "targetBase")
     private Base targetBase;
+
+    @Column(name = "costs")
+    private String costs;
+
+    @Column(name = "effect")
+    private String effect;
     
     @Enumerated(EnumType.STRING)
     @Column(name = "operationType")
     private OperationType operationType;
    
-    public Operation(String costs, String effects, String requirements, Building requiredBuilding, Base homeBase, Base targetBase, OperationType operationType) {
-    	this.costs = costs;
-    	this.effects = effects;
-    	this.requiredBuilding = requiredBuilding;
+    public Operation(Base homeBase, Base targetBase,  OperationType operationType, String costs, String effect) {
     	this.homeBase = homeBase;
     	this.targetBase = targetBase;
     	this.operationType = operationType;
+    	this.costs = costs;
+    	this.effect = effect;    	
+    }
+    
+    public Operation() {
     }
     
     public Long getId() {
@@ -55,11 +54,11 @@ public class Operation implements Serializable {
 	}
 
 	public String getEffects() {
-		return effects;
+		return effect;
 	}
 
 	public void setEffects(String effects) {
-		this.effects = effects;
+		this.effect = effects;
 	}
 
 	public Base getHomeBase() {
@@ -68,14 +67,6 @@ public class Operation implements Serializable {
 
 	public void setHomeBase(Base homeBase) {
 		this.homeBase = homeBase;
-	}
-
-	public Building getRequiredBuilding() {
-		return requiredBuilding;
-	}
-
-	public void setRequiredBuilding(Building requiredBuilding) {
-		this.requiredBuilding = requiredBuilding;
 	}
 
 	public OperationType getOperationType() {
@@ -108,10 +99,10 @@ public class Operation implements Serializable {
 				return false;
 		} else if (!costs.equals(other.costs))
 			return false;
-		if (effects == null) {
-			if (other.effects != null)
+		if (effect == null) {
+			if (other.effect != null)
 				return false;
-		} else if (!effects.equals(other.effects))
+		} else if (!effect.equals(other.effect))
 			return false;
 		if (homeBase == null) {
 			if (other.homeBase != null)
@@ -124,11 +115,6 @@ public class Operation implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		if (operationType != other.operationType)
-			return false;
-		if (requiredBuilding == null) {
-			if (other.requiredBuilding != null)
-				return false;
-		} else if (!requiredBuilding.equals(other.requiredBuilding))
 			return false;
 		if (targetBase == null) {
 			if (other.targetBase != null)
@@ -143,19 +129,17 @@ public class Operation implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((costs == null) ? 0 : costs.hashCode());
-		result = prime * result + ((effects == null) ? 0 : effects.hashCode());
+		result = prime * result + ((effect == null) ? 0 : effect.hashCode());
 		result = prime * result + ((homeBase == null) ? 0 : homeBase.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((operationType == null) ? 0 : operationType.hashCode());
-		result = prime * result + ((requiredBuilding == null) ? 0 : requiredBuilding.hashCode());
 		result = prime * result + ((targetBase == null) ? 0 : targetBase.hashCode());
 		return result;
 	}
 
 	@Override
 	public String toString() {
-		return "Operation [id=" + id + ", costs=" + costs + ", effects=" + effects + ", requiredBuilding="
-				+ requiredBuilding + ", homeBase=" + homeBase + ", targetBase=" + targetBase + ", operationType="
+		return "Operation [id=" + id + ", costs=" + costs + ", effect=" + effect + ", homeBase=" + homeBase + ", targetBase=" + targetBase + ", operationType="
 				+ operationType + "]";
 	}
 }

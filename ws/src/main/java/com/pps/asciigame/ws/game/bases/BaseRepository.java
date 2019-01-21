@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface BaseRepository extends CrudRepository<Base, Long> {
     List<Base> findByOwner(User owner);
+    List<Base> findByXAndY(int x, int y);
 }

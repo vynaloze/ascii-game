@@ -61,6 +61,58 @@ public class BaseServiceTest {
         //then
         assertThat(baseService.getBuildingsInBase(base)).hasSize(2).contains(building);
     }
+    
+    @Test
+    public void shouldRemoveBuilding() {
+        //given
+        final var base = new Base(0, 0, "testbase", user);
+        final var building = BuildingFactory.createBuilding(base, BuildingType.A);
+        baseService.addBase(base);
+        baseService.addBuilding(building);
+        //when
+        baseService.removeBuilding(building);
+        //then
+        assertThat(baseService.getBuildingsInBase(base)).hasSize(1);
+    }
+    
+    @Test
+    public void shouldGetCentralBuilding() {
+        //given
+        final var base = new Base(0, 0, "testbase", user);
+        final var building = BuildingFactory.createBuilding(base, BuildingType.CENTRAL);
+        baseService.addBase(base);
+        baseService.addBuilding(building);
+        //when
+        
+        //then
+        assertThat(baseService.getRandomBuilding(base)).isEqualTo(building);
+    }
+    
+    @Test
+    public void shouldReturnAllBases() {
+        //given
+        final var base = new Base(0, 0, "testbase", user);
+        final var base2 = new Base(1, 2, "testbase2", user);
+        //when
+        baseService.addBase(base);
+        baseService.addBase(base2);
+        //then
+        assertThat(baseService.getAllBases()).hasSize(2);
+        assertThat(baseService.getAllBases()).contains(base, base2);
+    }
+    
+    @Test
+    public void shouldRemoveBase() {
+        //given
+        final var base = new Base(0, 0, "testbase", user);
+        final var base2 = new Base(1, 2, "testbase2", user);
+        baseService.addBase(base);
+        baseService.addBase(base2);
+        //when
+        baseService.removeBase(base);
+        //then
+        assertThat(baseService.getAllBases()).containsOnly(base2);
+    }
 
     @Test
     public void shouldCalculateTotalProfit() {
