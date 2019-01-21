@@ -26,6 +26,16 @@ public class BaseService {
     public void addBuilding(final Building building) {
         buildingRepository.save(building);
     }
+    
+    public void removeBuilding(final Building building) {
+    	buildingRepository.delete(building);
+    }
+    
+    public Building getRandomBuilding(final Base base) {
+    	final var buildings = getBuildingsInBase(base);
+    	final int index = (int) Math.random() * (buildings.size() - 1);
+    	return buildings.get(index);
+    }
 
     public List<Base> getBasesWithOwner(final User owner) {
         return baseRepository.findByOwner(owner);

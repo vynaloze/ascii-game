@@ -46,7 +46,8 @@ public class OperationsController {
     }
     
     public void burnBuilding(final Operation operation) {
-    	
+    	final var building = baseService.getRandomBuilding(operation.getTargetBase());
+    	baseService.removeBuilding(building);
     }
     
     public int calculateRange(final Operation operation)
