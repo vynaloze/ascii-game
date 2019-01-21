@@ -6,7 +6,6 @@ import com.pps.asciigame.common.model.ResourceType;
 import com.pps.asciigame.common.model.User;
 import com.pps.asciigame.common.util.BuildingFactory;
 import com.pps.asciigame.ws.Main;
-import com.pps.asciigame.ws.game.bases.BaseRepository;
 import com.pps.asciigame.ws.game.bases.BaseService;
 import com.pps.asciigame.ws.game.users.UserRepository;
 import org.apache.logging.log4j.LogManager;
@@ -22,7 +21,6 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import javax.transaction.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertFalse;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {Main.class}, loader = AnnotationConfigContextLoader.class)
@@ -68,25 +66,26 @@ public class BaseServiceTest {
     public void shouldReturnAllBases() {
         //given
         final var base = new Base(0, 0, "testbase", user);
-        final var base2 = new Base(0, 0, "testbase2", user);
+        final var base2 = new Base(1, 2, "testbase2", user);
         //when
         baseService.addBase(base);
         baseService.addBase(base2);
         //then
-        assertThat(baseService.getAllBases().size() == 2);        
-        assertThat(baseService.getAllBases().contains(base));
-        assertThat(baseService.getAllBases().contains(base2));
+        assertThat(baseService.getAllBases()).hasSize(2);
+        assertThat(baseService.getAllBases()).contains(base, base2);
     }
     
     @Test
     public void shouldRemoveBase() {
         //given
         final var base = new Base(0, 0, "testbase", user);
-        //when
+        final var base2 = new Base(1, 2, "testbase2", user);
         baseService.addBase(base);
+        baseService.addBase(base2);
+        //when
         baseService.removeBase(base);
         //then
-        assertFalse(baseService.getAllBases().contains(base));
+        assertThat(baseService.getAllBases()).containsOnly(base2);
     }
 
     @Test

@@ -26,6 +26,8 @@ public class BaseService {
     
     public void removeBase(final Base base) {
     	final var helper = baseRepository.findByXAndY(base.getX(), base.getY());
+        final List<Building> allbuilidngsInBase = buildingRepository.findByBase(base);
+        buildingRepository.deleteAll(allbuilidngsInBase);
     	baseRepository.deleteAll(helper);
     }
 
