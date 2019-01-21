@@ -45,11 +45,14 @@ public class MainFXMLController {
     @FXML
     private TextField message;
     @FXML
-    private Button send, buildBuilding, map;
+    private Button send, buildBuilding, map, exit;
     @FXML
     private ListView<Base> basesList;
     @FXML
     private ListView<Building> buildingsList;
+    @FXML
+    private ScrollPane chatScroller;
+
     private List<Building> allBuildings;
 
 
@@ -62,6 +65,7 @@ public class MainFXMLController {
                 sendChatMessage();
             }
         });
+        chatScroller.vvalueProperty().bind(chatHistory.heightProperty());
         // build building (secondary way)
         buildBuilding.setOnAction(e -> {
             parameterForwarder.pass(selectedBase, Base.class);
@@ -74,6 +78,8 @@ public class MainFXMLController {
         initBuildingsListView();
         // map
         map.setOnAction(e -> ScenesManager.loadScene(MapUI.class));
+        // exit
+        exit.setOnAction(e -> System.exit(0));
     }
 
     private void sendChatMessage() {

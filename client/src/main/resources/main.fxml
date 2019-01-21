@@ -5,6 +5,7 @@
 <?import javafx.scene.text.Font?>
 <VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pps.asciigame.client.ui.MainFXMLController">
+    <Button fx:id="exit" mnemonicParsing="false" text="Exit"/>
     <Label fx:id="resourceLabel">
         <font>
             <Font size="18.0"/>
@@ -21,7 +22,11 @@
     <Label text="Buildings:"/>
     <ListView fx:id="buildingsList" layoutX="10.0" layoutY="45.0" prefHeight="200.0" prefWidth="200.0"/>
     <Button fx:id="buildBuilding" mnemonicParsing="false" text="Build Building" visible="false"/>
-    <Label fx:id="chatHistory"/>
+    <ScrollPane fx:id="chatScroller" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS">
+        <content>
+            <Label fx:id="chatHistory"/>
+        </content>
+    </ScrollPane>
     <TextField fx:id="message" promptText="Write here..."/>
     <Button fx:id="send" mnemonicParsing="false" text="Send"/>
 </VBox>
