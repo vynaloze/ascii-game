@@ -45,7 +45,7 @@ public class MainFXMLController {
     @FXML
     private TextField message;
     @FXML
-    private Button send, buildBase, buildBuilding, map;
+    private Button send, buildBuilding, map;
     @FXML
     private ListView<Base> basesList;
     @FXML
@@ -62,11 +62,8 @@ public class MainFXMLController {
                 sendChatMessage();
             }
         });
-        // build base
-        buildBase.setOnAction(e -> ScenesManager.loadScene(ScenesManager.Scenes.BUILD_BASE));
-        // build building
+        // build building (secondary way)
         buildBuilding.setOnAction(e -> {
-            parameterForwarder.pass(currentResources, ResourceAmounts.class);
             parameterForwarder.pass(selectedBase, Base.class);
             ScenesManager.loadScene(ScenesManager.Scenes.BUILD_BUILDING);
         });
@@ -108,6 +105,7 @@ public class MainFXMLController {
 
     private void updateResources(final List<Resource> resources) {
         currentResources = new ResourceAmounts.Builder().fromList(resources);
+        parameterForwarder.pass(currentResources, ResourceAmounts.class);
         resources.sort(Comparator.comparingInt(o -> o.getType().ordinal()));
         final var format = "|| %s:    %10d || %s: %10d || %s:    %10d ||";
         final var text = String.format(format,

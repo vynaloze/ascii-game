@@ -29,17 +29,23 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 public class MapUI implements CodedScene {
-    private final ScheduledExecutorService scheduler = new ScheduledThreadPoolExecutor(1);
-    private static final int MAP_SIZE = 9;
-    private final Stage stage = new Stage();
-    private final VBox vBox = new VBox();
-    private int currentX = 0;
-    private int currentY = 0;
     @Autowired
     private Requester requester;
-    private List<Base> bases = new ArrayList<>();
     @Autowired
     private ParameterForwarder parameterForwarder;
+
+    private static final int MAP_SIZE = 9;
+
+    private final ScheduledExecutorService scheduler = new ScheduledThreadPoolExecutor(1);
+
+    private final Stage stage = new Stage();
+    private final VBox vBox = new VBox();
+
+    private int currentX = 0;
+    private int currentY = 0;
+
+    private List<Base> bases = new ArrayList<>();
+
     private boolean initialized = false;
 
     @Override
@@ -124,10 +130,12 @@ public class MapUI implements CodedScene {
         if (base.get().getOwner().equals(requester.getUser())) {
             button.setOnAction(e -> {
                 parameterForwarder.pass(base.get(), Base.class);
-
+                ScenesManager.loadScene(ScenesManager.Scenes.BUILD_BUILDING);
             });
         } else {
-
+            button.setOnAction(e -> {
+                // todo operations here
+            });
         }
     }
 
