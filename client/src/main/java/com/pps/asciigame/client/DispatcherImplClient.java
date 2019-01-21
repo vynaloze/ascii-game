@@ -5,6 +5,7 @@ import com.pps.asciigame.client.game.DataReceivingController;
 import com.pps.asciigame.common.Dispatcher;
 import com.pps.asciigame.common.protocol.BasicInfo;
 import com.pps.asciigame.common.protocol.ChatEntry;
+import com.pps.asciigame.common.protocol.Confirmation;
 import com.pps.asciigame.common.protocol.MapData;
 import com.pps.asciigame.common.protocol.Message;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class DispatcherImplClient implements Dispatcher {
             dataReceivingController.updateBasicInfo((BasicInfo) message);
         } else if (message instanceof MapData) {
             dataReceivingController.updateMapData((MapData) message);
+        } else if (message instanceof Confirmation) {
+        	//todo - where to send it?
         } else {
             throw new UnsupportedOperationException("Unsupported message type.");
         }

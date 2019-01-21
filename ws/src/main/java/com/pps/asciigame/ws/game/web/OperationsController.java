@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 import com.pps.asciigame.common.model.Building;
 import com.pps.asciigame.common.model.Operation;
+import com.pps.asciigame.common.model.User;
+import com.pps.asciigame.common.protocol.Confirmation;
 import com.pps.asciigame.common.protocol.MapData;
 import com.pps.asciigame.ws.ConnectionManager;
 import com.pps.asciigame.ws.game.bases.BaseService;
@@ -22,25 +24,24 @@ public class OperationsController {
     @Autowired
     private ConnectionManager connectionManager;
 	
-    public void performOperation(final Operation operation) {
+    public void performOperation(final Operation operation, User user) {
     	final var base = operation.getHomeBase();
     	final List<Building> buildings = baseService.getBuildingsInBase(base);  		
 		if(calculateRange(operation) <= operation.getOperationType().getRange()){
 			if(operation.getOperationType().getEffect().equals("steal")) {
-				stealResources(operation);
+				stealResources(operation, user);
 			}
 			else if (operation.getOperationType().getEffect().equals("burn")) { 
-				burnBuilding(operation);
+				burnBuilding(operation, user);
 			}
 		}
 		else
 		{
-			//operation failed
-			//connectionManager.pushTo(user, new MapData(user, bases));
+			connectionManager.pushTo(user, new Confirmation(user, "Failure"));
 		}
     }
     
-    public void stealResources(final Operation operation) {
+    public void stealResources(final Operation operation, User user) {
     	final var resourcesTarget = resourceService.getAll(operation.getTargetBase().getOwner());
     	final var resourcesHome = resourceService.getAll(operation.getHomeBase().getOwner());
     	
@@ -54,9 +55,11 @@ public class OperationsController {
             resourceService.update(resource);
         });
         
+        connectionManager.pushTo(user, new Confirmation(user, "Success"));
+        
     }
     
-    public void burnBuilding(final Operation operation) {
+    public void burnBuilding(final Operation operation, User user) {
     	final double roll = Math.random();
     	if(roll < operation.getOperationType().getPercent()) {
     		final var building = baseService.getRandomBuilding(operation.getTargetBase());
@@ -65,10 +68,11 @@ public class OperationsController {
         	{
         		baseService.removeBase(operation.getTargetBase());
         	}
+        	connectionManager.pushTo(user, new Confirmation(user, "Success"));
     	}
     	else
     	{
-    		
+    		connectionManager.pushTo(user, new Confirmation(user, "Failure"));
     	}
     }
     

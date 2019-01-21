@@ -34,7 +34,7 @@ public class DispatcherImplWs implements Dispatcher {
         } else if (message instanceof BuildBuilding) {
             baseController.addBuilding(((BuildBuilding) message).getBuilding());
         } else if (message instanceof PerformOperation) {
-        	operationController.performOperation(((PerformOperation) message).getOperation()); //todo - unfinished
+        	operationController.performOperation(((PerformOperation) message).getOperation(), message.getUser());
         } else if (message instanceof RequestMapData) {
             baseController.sendAllBases(message.getUser());
         } else {
