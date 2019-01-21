@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,8 +38,16 @@ public class BaseService {
     
     public Building getRandomBuilding(final Base base) {
     	final var buildings = getBuildingsInBase(base);
-    	final int index = (int) Math.random() * (buildings.size() - 1);
-    	return buildings.get(index);
+    	if(buildings.size() == 0)
+    	{
+    		return buildings.get(0);
+    	}
+    	else
+    	{
+    		Random rand = new Random();
+        	final int index = rand.nextInt(buildings.size() - 1) + 1;
+        	return buildings.get(index);
+    	}    	
     }
 
     public List<Base> getBasesWithOwner(final User owner) {
