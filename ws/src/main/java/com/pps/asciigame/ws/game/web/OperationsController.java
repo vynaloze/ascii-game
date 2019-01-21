@@ -25,7 +25,12 @@ public class OperationsController {
     	final List<Building> buildings = baseService.getBuildingsInBase(base);
     	if(buildings.contains(operation.getRequiredBuilding())){    		
     		if(calculateRange(operation) <= operation.getOperationType().getRange()){
-    			// todo - what should it do depending on the operation
+    			if(operation.getOperationType().getEffect().equals("steal")) {
+    				stealResources(operation);
+    			}
+    			else if (operation.getOperationType().getEffect().equals("burn")) { 
+    				burnBuilding(operation);
+    			}
     		}
     	}
     }

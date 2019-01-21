@@ -18,18 +18,19 @@ public class BaseService {
     @Autowired
     private BuildingRepository buildingRepository;
 
-    public void addBase(final Base base) {
-        baseRepository.save(base);
+    public Base addBase(final Base base) {        
         final var centralBuilding = BuildingFactory.createBuilding(base, BuildingType.CENTRAL);
         buildingRepository.save(centralBuilding);
+        return baseRepository.save(base);
     }
     
     public void removeBase(final Base base) {
-    	baseRepository.delete(base);
+    	final var helper = baseRepository.findByXAndY(base.getX(), base.getY());
+    	baseRepository.deleteAll(helper);
     }
 
-    public void addBuilding(final Building building) {
-        buildingRepository.save(building);
+    public Building addBuilding(final Building building) {
+        return buildingRepository.save(building);
     }
     
     public void removeBuilding(final Building building) {
