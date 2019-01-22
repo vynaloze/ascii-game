@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
+<VBox prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pps.asciigame.client.ui.MainFXMLController">
     <Button fx:id="exit" mnemonicParsing="false" text="Exit"/>
     <Label fx:id="resourceLabel">
@@ -12,14 +12,14 @@
         </font>
     </Label>
     <Button fx:id="map" mnemonicParsing="false" text="MAP"/>
-    <Label text="Bases:"/>
+    <Label text="All friendly bases:"/>
     <ListView fx:id="basesList" prefHeight="200.0" prefWidth="200.0"/>
     <Label fx:id="currentBaseLabel" layoutX="10.0" layoutY="10.0">
         <font>
             <Font size="11.0"/>
         </font>
     </Label>
-    <Label text="Buildings:"/>
+    <Label text="Buildings inside the base:"/>
     <ListView fx:id="buildingsList" layoutX="10.0" layoutY="45.0" prefHeight="200.0" prefWidth="200.0"/>
     <Button fx:id="buildBuilding" mnemonicParsing="false" text="Build Building" visible="false"/>
     <ScrollPane fx:id="chatScroller" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS">

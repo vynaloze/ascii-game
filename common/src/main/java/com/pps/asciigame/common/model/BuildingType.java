@@ -49,7 +49,7 @@ public enum BuildingType implements Serializable {
             .build(),
     new ResourceAmounts.Builder()
             .withType(GOLD, 0.0)
-            .withType(MINERAL, 3000.0)
+            .withType(MINERAL, 300.0)
             .withType(FOOD, 0.0)
             .build()
 	),
