@@ -31,7 +31,7 @@ public class Base implements Serializable {
         this.owner = owner;
     }
 
-    protected Base() {
+    public Base() {
     }
 
     public long getId() {
