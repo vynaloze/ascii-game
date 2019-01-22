@@ -12,9 +12,9 @@ public enum BuildingType implements Serializable {
                     .withType(FOOD, 500.0)
                     .build(),
             new ResourceAmounts.Builder()
-                    .withType(GOLD, 10.0)
-                    .withType(MINERAL, 10.0)
-                    .withType(FOOD, 10.0)
+                    .withType(GOLD, 50.0)
+                    .withType(MINERAL, 50.0)
+                    .withType(FOOD, 50.0)
                     .build()
     ),
     WATCHTOWER(
@@ -99,6 +99,18 @@ public enum BuildingType implements Serializable {
             .withType(GOLD, 300.0)
             .withType(MINERAL, 0.0)
             .withType(FOOD, 0.0)
+            .build()
+    ),
+    PALACE(
+    		new ResourceAmounts.Builder()
+            .withType(GOLD, 4000.0)
+            .withType(MINERAL, 4000.0)
+            .withType(FOOD, 4000.0)
+            .build(),
+    new ResourceAmounts.Builder()
+            .withType(GOLD, 300.0)
+            .withType(MINERAL, 300.0)
+            .withType(FOOD, 300.0)
             .build()
     );
 

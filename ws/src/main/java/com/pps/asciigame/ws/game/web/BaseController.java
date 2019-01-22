@@ -5,6 +5,7 @@ import com.pps.asciigame.common.model.*;
 import com.pps.asciigame.common.protocol.BasicInfo;
 import com.pps.asciigame.common.protocol.Confirmation;
 import com.pps.asciigame.common.protocol.MapData;
+import com.pps.asciigame.common.util.BuildingFactory;
 import com.pps.asciigame.ws.ConnectionManager;
 import com.pps.asciigame.ws.game.bases.BaseService;
 import com.pps.asciigame.ws.game.resources.ResourceService;
@@ -35,14 +36,23 @@ public class BaseController {
     }
 
     public void addBase(final Base base, User user) {
+    	final var centralBuilding = BuildingFactory.createBuilding(base, BuildingType.CITY_HALL);
+    	final var resources = resourceService.getAll(user);
+        final var costs = JsonParser.asObject(centralBuilding.getCosts(), ResourceAmounts.class);
     	if(!baseService.getAllBases().contains(base)) {
             if (baseService.isAdjacentToFriendly(base) || baseService.getBasesWithOwner(base.getOwner()).size() == 0) {
-    			baseService.addBase(base);
-    			provideBasicInfo(base.getOwner());
-    			connectionManager.pushTo(user, new Confirmation(user, "You successfully built a base!"));
+            	if (isEnoughResources(resources, costs)) {
+            		updateResources(resources, costs);
+	    			baseService.addBase(base);
+	    			provideBasicInfo(base.getOwner());
+	    			connectionManager.pushTo(user, new Confirmation(user, "You successfully built a base!"));
+            	}
+            	else {
+            		connectionManager.pushTo(user, new Confirmation(user, "Failed to build a base - not enough resources!"));
+            	}
     		}
             else {
-            connectionManager.pushTo(user, new Confirmation(user, "Failed to build a base - not adjacent to a friendly base!"));
+            	connectionManager.pushTo(user, new Confirmation(user, "Failed to build a base - not adjacent to a friendly base!"));
             }
     	}
     	else {

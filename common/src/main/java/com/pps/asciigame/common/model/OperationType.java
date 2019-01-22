@@ -13,7 +13,7 @@ public enum OperationType implements Serializable {
             .withType(MINERAL, 0.0)
             .withType(FOOD, 0.0)
             .build()),
-	BURN(5, "burn", 0.1,
+	BURN(5, "burn", 0.5,
 			new ResourceAmounts.Builder()
             .withType(GOLD, 500.0)
             .withType(MINERAL, 0.0)

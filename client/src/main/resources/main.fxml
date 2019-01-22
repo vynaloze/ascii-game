@@ -16,7 +16,7 @@
     <ListView fx:id="basesList" prefHeight="200.0" prefWidth="200.0"/>
     <Label fx:id="currentBaseLabel" layoutX="10.0" layoutY="10.0">
         <font>
-            <Font size="14.0"/>
+            <Font size="11.0"/>
         </font>
     </Label>
     <Label text="Buildings:"/>

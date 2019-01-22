@@ -53,7 +53,7 @@ public class MapUI implements CodedScene {
         if (!initialized) {
             scheduler.scheduleAtFixedRate(() -> requester.sendRequest(new RequestMapData(requester.getUser())), 1, 1, TimeUnit.SECONDS);
             reloadMap();
-            final var scene = new Scene(vBox, 800, 800);
+            final var scene = new Scene(vBox, 700, 700);
             stage.setTitle("MAP");
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);

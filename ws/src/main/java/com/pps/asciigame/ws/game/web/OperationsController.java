@@ -71,7 +71,7 @@ public class OperationsController {
         		baseService.removeBase(operation.getTargetBase());
         	}
         	final var victim = operation.getTargetBase().getOwner();
-        	connectionManager.pushTo(user, new Confirmation(user, "You successfully destroyed a building in " + victim.getName() + "'s base."));            
+        	connectionManager.pushTo(user, new Confirmation(user, "You successfully burned a building in " + victim.getName() + "'s base."));            
             connectionManager.pushTo(victim, new Confirmation(victim, "One of your buildings was burned by " + user.getName() + "."));
     	}
     	else

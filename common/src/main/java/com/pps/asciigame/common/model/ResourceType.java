@@ -3,7 +3,7 @@ package com.pps.asciigame.common.model;
 import java.io.Serializable;
 
 public enum ResourceType implements Serializable {
-    GOLD(1000), MINERAL(2000), FOOD(500);
+    GOLD(2000), MINERAL(2000), FOOD(1000);
 
     private final double intialAmount;
 
