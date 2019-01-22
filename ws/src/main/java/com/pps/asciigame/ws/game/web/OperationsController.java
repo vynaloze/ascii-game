@@ -56,8 +56,8 @@ public class OperationsController {
             resourceService.update(resource);
         });
         final var victim = operation.getTargetBase().getOwner();
-        connectionManager.pushTo(user, new Confirmation(user, "You successfully stole resources from " + victim + "'s base."));        
-        connectionManager.pushTo(victim, new Confirmation(victim, "You have been robbed by " + user));
+        connectionManager.pushTo(user, new Confirmation(user, "You successfully stole resources from " + victim.getName() + "'s base."));        
+        connectionManager.pushTo(victim, new Confirmation(victim, "You have been robbed by " + user.getName()));
         
     }
     
@@ -71,14 +71,14 @@ public class OperationsController {
         		baseService.removeBase(operation.getTargetBase());
         	}
         	final var victim = operation.getTargetBase().getOwner();
-        	connectionManager.pushTo(user, new Confirmation(user, "You successfully destroyed a building in " + victim + "'s base."));            
-            connectionManager.pushTo(victim, new Confirmation(victim, "One of your buildings was burned by " + user + "."));
+        	connectionManager.pushTo(user, new Confirmation(user, "You successfully destroyed a building in " + victim.getName() + "'s base."));            
+            connectionManager.pushTo(victim, new Confirmation(victim, "One of your buildings was burned by " + user.getName() + "."));
     	}
     	else
     	{
     		connectionManager.pushTo(user, new Confirmation(user, "You failed to burn anything."));
             final var victim = operation.getTargetBase().getOwner();
-            connectionManager.pushTo(victim, new Confirmation(victim, user + " tried to burn one of your buildings!"));
+            connectionManager.pushTo(victim, new Confirmation(victim, user.getName() + " tried to burn one of your buildings!"));
     	}
     }
     

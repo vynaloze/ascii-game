@@ -46,7 +46,7 @@ public class Main {
             connection.write(new BuildBase(user, base));
             Thread.sleep(10000);
 
-            final var building = BuildingFactory.createBuilding(base, BuildingType.A);
+            final var building = BuildingFactory.createBuilding(base, BuildingType.WATCHTOWER);
             connection.write(new BuildBuilding(user, building));
             Thread.sleep(10000);
 

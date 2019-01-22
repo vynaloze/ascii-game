@@ -7,29 +7,17 @@ import static com.pps.asciigame.common.model.ResourceType.MINERAL;
 import java.io.Serializable;
 
 public enum OperationType implements Serializable {
-	STEAL_1(5, "steal", 0.1, 
+	STEAL(5, "steal", 0.1, 
 			new ResourceAmounts.Builder()
-            .withType(GOLD, 100.0)
-            .withType(MINERAL, 100.0)
-            .withType(FOOD, 50.0)
+            .withType(GOLD, 500.0)
+            .withType(MINERAL, 0.0)
+            .withType(FOOD, 0.0)
             .build()),
-	BURN_1(5, "burn", 0.1,
+	BURN(5, "burn", 0.1,
 			new ResourceAmounts.Builder()
-            .withType(GOLD, 100.0)
-            .withType(MINERAL, 100.0)
-            .withType(FOOD, 50.0)
-            .build()),
-	STEAL_2(10, "steal", 0.2,
-			new ResourceAmounts.Builder()
-            .withType(GOLD, 100.0)
-            .withType(MINERAL, 100.0)
-            .withType(FOOD, 50.0)
-            .build()),
-	BURN_2(10, "burn", 0.2,
-			new ResourceAmounts.Builder()
-            .withType(GOLD, 100.0)
-            .withType(MINERAL, 100.0)
-            .withType(FOOD, 50.0)
+            .withType(GOLD, 500.0)
+            .withType(MINERAL, 0.0)
+            .withType(FOOD, 0.0)
             .build());
 	
 	private final int range;

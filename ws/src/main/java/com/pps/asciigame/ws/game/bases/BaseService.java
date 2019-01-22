@@ -19,7 +19,7 @@ public class BaseService {
     private BuildingRepository buildingRepository;
 
     public Base addBase(final Base base) {        
-        final var centralBuilding = BuildingFactory.createBuilding(base, BuildingType.CENTRAL);
+        final var centralBuilding = BuildingFactory.createBuilding(base, BuildingType.CITY_HALL);
         final var savedBase = baseRepository.save(base);
         buildingRepository.save(centralBuilding);
         return savedBase;

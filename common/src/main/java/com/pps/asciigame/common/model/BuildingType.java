@@ -5,7 +5,7 @@ import java.io.Serializable;
 import static com.pps.asciigame.common.model.ResourceType.*;
 
 public enum BuildingType implements Serializable {
-    CENTRAL(
+    CITY_HALL(
             new ResourceAmounts.Builder()
                     .withType(GOLD, 1000.0)
                     .withType(MINERAL, 1000.0)
@@ -14,125 +14,89 @@ public enum BuildingType implements Serializable {
             new ResourceAmounts.Builder()
                     .withType(GOLD, 10.0)
                     .withType(MINERAL, 10.0)
-                    .withType(FOOD, 5.0)
+                    .withType(FOOD, 10.0)
                     .build()
     ),
-    A(
+    WATCHTOWER(
             new ResourceAmounts.Builder()
-                    .withType(GOLD, 1000.0)
-                    .withType(MINERAL, 1000.0)
-                    .withType(FOOD, 500.0)
+                    .withType(GOLD, 100.0)
+                    .withType(MINERAL, 100.0)
+                    .withType(FOOD, 0.0)
                     .build(),
             new ResourceAmounts.Builder()
-                    .withType(GOLD, 5.0)
-                    .withType(MINERAL, 2.0)
-                    .withType(FOOD, -1.0)
+                    .withType(GOLD, 0.0)
+                    .withType(MINERAL, 0.0)
+                    .withType(FOOD, 0.0)
                     .build()
     ),
-    MINER_1(
+    MINE(
     		new ResourceAmounts.Builder()
-            .withType(GOLD, 200.0)
-            .withType(MINERAL, 200.0)
-            .withType(FOOD, 200.0)
+            .withType(GOLD, 250.0)
+            .withType(MINERAL, 250.0)
+            .withType(FOOD, 0.0)
             .build(),
     new ResourceAmounts.Builder()
             .withType(GOLD, 0.0)
-            .withType(MINERAL, 10.0)
+            .withType(MINERAL, 100.0)
             .withType(FOOD, 0.0)
             .build()
 	),
-    MINER_2(
+    SUPER_MINE(
     		new ResourceAmounts.Builder()
             .withType(GOLD, 500.0)
             .withType(MINERAL, 500.0)
-            .withType(FOOD, 500.0)
+            .withType(FOOD, 0.0)
             .build(),
     new ResourceAmounts.Builder()
             .withType(GOLD, 0.0)
-            .withType(MINERAL, 20.0)
+            .withType(MINERAL, 3000.0)
             .withType(FOOD, 0.0)
             .build()
 	),
-    MINER_3(
+    FARM(
     		new ResourceAmounts.Builder()
-            .withType(GOLD, 1500.0)
-            .withType(MINERAL, 1500.0)
-            .withType(FOOD, 1500.0)
+            .withType(GOLD, 0.0)
+            .withType(MINERAL, 250.0)
+            .withType(FOOD, 250.0)
             .build(),
     new ResourceAmounts.Builder()
             .withType(GOLD, 0.0)
-            .withType(MINERAL, 40.0)
-            .withType(FOOD, 0.0)
+            .withType(MINERAL, 0.0)
+            .withType(FOOD, 100.0)
             .build()
 	),
-    FOOD_1(
+    SUPER_FARM(
     		new ResourceAmounts.Builder()
-            .withType(GOLD, 500.0)
+            .withType(GOLD, 0.0)
             .withType(MINERAL, 500.0)
             .withType(FOOD, 500.0)
             .build(),
     new ResourceAmounts.Builder()
             .withType(GOLD, 0.0)
             .withType(MINERAL, 0.0)
-            .withType(FOOD, 10.0)
+            .withType(FOOD, 300.0)
             .build()
-	),
-    FOOD_2(
+    ),
+    GOLDMINE(
+    		new ResourceAmounts.Builder()
+            .withType(GOLD, 500.0)
+            .withType(MINERAL, 500.0)
+            .withType(FOOD, 0.0)
+            .build(),
+    new ResourceAmounts.Builder()
+            .withType(GOLD, 100.0)
+            .withType(MINERAL, 0.0)
+            .withType(FOOD, 0.0)
+            .build()
+    ),
+    SUPER_GOLDMINE(
     		new ResourceAmounts.Builder()
             .withType(GOLD, 1000.0)
             .withType(MINERAL, 1000.0)
-            .withType(FOOD, 1000.0)
-            .build(),
-    new ResourceAmounts.Builder()
-            .withType(GOLD, 0.0)
-            .withType(MINERAL, 0.0)
-            .withType(FOOD, 29.0)
-            .build()
-    ),
-    GOLD_1(
-    		new ResourceAmounts.Builder()
-            .withType(GOLD, 500.0)
-            .withType(MINERAL, 500.0)
-            .withType(FOOD, 500.0)
-            .build(),
-    new ResourceAmounts.Builder()
-            .withType(GOLD, 10.0)
-            .withType(MINERAL, 0.0)
             .withType(FOOD, 0.0)
-            .build()
-    ),
-    GOLD_2(
-    		new ResourceAmounts.Builder()
-            .withType(GOLD, 1000.0)
-            .withType(MINERAL, 1000.0)
-            .withType(FOOD, 1000.0)
             .build(),
     new ResourceAmounts.Builder()
-            .withType(GOLD, 20.0)
-            .withType(MINERAL, 0.0)
-            .withType(FOOD, 0.0)
-            .build()
-    ),
-    THIEF_1(
-    		new ResourceAmounts.Builder()
-            .withType(GOLD, 2000.0)
-            .withType(MINERAL, 2000.0)
-            .withType(FOOD, 2000.0)
-            .build(),
-    new ResourceAmounts.Builder()
-            .withType(GOLD, 0.0)
-            .withType(MINERAL, 0.0)
-            .withType(FOOD, 0.0)
-            .build()
-    ),
-    ARSON_1(
-    		new ResourceAmounts.Builder()
-            .withType(GOLD, 2000.0)
-            .withType(MINERAL, 2000.0)
-            .withType(FOOD, 2000.0)
-            .build(),
-    new ResourceAmounts.Builder()
-            .withType(GOLD, 0.0)
+            .withType(GOLD, 300.0)
             .withType(MINERAL, 0.0)
             .withType(FOOD, 0.0)
             .build()

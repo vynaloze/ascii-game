@@ -47,14 +47,14 @@ public class BaseServiceTest {
         baseService.addBase(base);
         //then
         assertThat(baseService.getBasesWithOwner(user)).containsOnly(base);
-        assertThat(baseService.getBuildingsInBase(base)).hasSize(1).allMatch(b -> b.getType().equals(BuildingType.CENTRAL));
+        assertThat(baseService.getBuildingsInBase(base)).hasSize(1).allMatch(b -> b.getType().equals(BuildingType.CITY_HALL));
     }
 
     @Test
     public void shouldAddAnotherBuilding() {
         //given
         final var base = new Base(0, 0, "testbase", user);
-        final var building = BuildingFactory.createBuilding(base, BuildingType.A);
+        final var building = BuildingFactory.createBuilding(base, BuildingType.WATCHTOWER);
         baseService.addBase(base);
         //when
         baseService.addBuilding(building);
@@ -66,7 +66,7 @@ public class BaseServiceTest {
     public void shouldRemoveBuilding() {
         //given
         final var base = new Base(0, 0, "testbase", user);
-        final var building = BuildingFactory.createBuilding(base, BuildingType.A);
+        final var building = BuildingFactory.createBuilding(base, BuildingType.WATCHTOWER);
         baseService.addBase(base);
         baseService.addBuilding(building);
         //when
@@ -79,7 +79,7 @@ public class BaseServiceTest {
     public void shouldGetCentralBuilding() {
         //given
         final var base = new Base(0, 0, "testbase", user);
-        final var building = BuildingFactory.createBuilding(base, BuildingType.CENTRAL);
+        final var building = BuildingFactory.createBuilding(base, BuildingType.CITY_HALL);
         baseService.addBase(base);
         baseService.addBuilding(building);
         //when
@@ -118,11 +118,11 @@ public class BaseServiceTest {
     public void shouldCalculateTotalProfit() {
         //given
         final var base = new Base(0, 0, "testbase", user);
-        final var building = BuildingFactory.createBuilding(base, BuildingType.A);
+        final var building = BuildingFactory.createBuilding(base, BuildingType.WATCHTOWER);
         baseService.addBase(base);
         baseService.addBuilding(building);
-        final var expectedProfit = BuildingType.CENTRAL.getProfit().getAmount(ResourceType.MINERAL)
-                + BuildingType.A.getProfit().getAmount(ResourceType.MINERAL);
+        final var expectedProfit = BuildingType.CITY_HALL.getProfit().getAmount(ResourceType.MINERAL)
+                + BuildingType.WATCHTOWER.getProfit().getAmount(ResourceType.MINERAL);
         //when
         final var totalProfit = baseService.getTotalProfitOf(ResourceType.MINERAL, user);
         //then
