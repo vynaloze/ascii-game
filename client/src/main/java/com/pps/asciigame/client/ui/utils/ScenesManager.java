@@ -21,7 +21,7 @@ public class ScenesManager {
         try {
             final var parent = (Parent) loader.load(MAIN.getResourceUrl());
             primaryStage.setTitle("ASCII GAME");
-            parentScene = new Scene(parent, 800, 600);
+            parentScene = new Scene(parent);
             primaryStage.setScene(parentScene);
             primaryStage.show();
         } catch (IOException e) {
@@ -36,7 +36,7 @@ public class ScenesManager {
             stage.setTitle(scene.name());
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.initOwner(parentScene.getWindow());
-            stage.setScene(new Scene(parent, 600, 400));
+            stage.setScene(new Scene(parent));
             stage.showAndWait();
         } catch (IOException e) {
             LOGGER.error(e);
