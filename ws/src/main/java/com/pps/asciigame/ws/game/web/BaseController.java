@@ -39,14 +39,14 @@ public class BaseController {
             if (baseService.isAdjacentToFriendly(base) || baseService.getBasesWithOwner(base.getOwner()).size() == 0) {
     			baseService.addBase(base);
     			provideBasicInfo(base.getOwner());
-    			connectionManager.pushTo(user, new Confirmation(user, "Success"));
+    			connectionManager.pushTo(user, new Confirmation(user, "You successfully built a base!"));
     		}
             else {
-            connectionManager.pushTo(user, new Confirmation(user, "Failure"));
+            connectionManager.pushTo(user, new Confirmation(user, "Failed to build a base - not adjacent to a friendly base!"));
             }
     	}
     	else {
-    		connectionManager.pushTo(user, new Confirmation(user, "Failure"));
+    		connectionManager.pushTo(user, new Confirmation(user, "Failed to build a base - there's already a base in that space!"));
     	}
     }
 
@@ -58,10 +58,10 @@ public class BaseController {
             updateResources(resources, costs);
             baseService.addBuilding(building);
             provideBasicInfo(user);
-            connectionManager.pushTo(user, new Confirmation(user, "Success"));
+            connectionManager.pushTo(user, new Confirmation(user, "You successfully built a building!"));
         }
         else {
-        	connectionManager.pushTo(user, new Confirmation(user, "Failure"));
+        	connectionManager.pushTo(user, new Confirmation(user, "Failed to build a building - not enough resources!"));
         }
     }
 

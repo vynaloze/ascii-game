@@ -38,7 +38,7 @@ public class OperationsController {
 		}
 		else
 		{
-			connectionManager.pushTo(user, new Confirmation(user, "Failure"));
+			connectionManager.pushTo(user, new Confirmation(user, "Failed to perform operation - target out of range!"));
 		}
     }
     
@@ -47,7 +47,7 @@ public class OperationsController {
 //    	final var resourcesHome = resourceService.getAll(operation.getHomeBase().getOwner()); fixme - workaround to not use HomeBase at all (see PerformOperationFXMLController)
         final var resourcesHome = resourceService.getAll(user);
     	resourcesHome.forEach(resource -> {
-            resource.setAmount(resource.getAmount() + resource.getAmount() * operation.getOperationType().getPercent()); //todo - how to add percent of resources from different player?
+            resource.setAmount(resource.getAmount() + resource.getAmount() * operation.getOperationType().getPercent());
             resourceService.update(resource);
         });
     	
@@ -55,10 +55,9 @@ public class OperationsController {
             resource.setAmount(resource.getAmount() - resource.getAmount() * operation.getOperationType().getPercent());
             resourceService.update(resource);
         });
-
-        connectionManager.pushTo(user, new Confirmation(user, "Success")); // thief
         final var victim = operation.getTargetBase().getOwner();
-        connectionManager.pushTo(victim, new Confirmation(victim, "U have been robbed.")); //todo better all these confirmation messages, please
+        connectionManager.pushTo(user, new Confirmation(user, "You successfully stole resources from " + victim + "'s base."));        
+        connectionManager.pushTo(victim, new Confirmation(victim, "You have been robbed by " + user));
         
     }
     
@@ -71,15 +70,15 @@ public class OperationsController {
         	{
         		baseService.removeBase(operation.getTargetBase());
         	}
-        	connectionManager.pushTo(user, new Confirmation(user, "Success"));
-            final var victim = operation.getTargetBase().getOwner();
-            connectionManager.pushTo(victim, new Confirmation(victim, "U have been burned [from ???]"));
+        	final var victim = operation.getTargetBase().getOwner();
+        	connectionManager.pushTo(user, new Confirmation(user, "You successfully destroyed a building in " + victim + "'s base."));            
+            connectionManager.pushTo(victim, new Confirmation(victim, "One of your buildings was burned by " + user + "."));
     	}
     	else
     	{
-    		connectionManager.pushTo(user, new Confirmation(user, "Failure"));
+    		connectionManager.pushTo(user, new Confirmation(user, "You failed to burn anything."));
             final var victim = operation.getTargetBase().getOwner();
-            connectionManager.pushTo(victim, new Confirmation(victim, "U managed to escape fire from"));
+            connectionManager.pushTo(victim, new Confirmation(victim, user + " tried to burn one of your buildings!"));
     	}
     }
     
